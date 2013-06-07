@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D4DF20738A1B9E1C49C5B8D /* FlocCommandsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF972C11F868C7A5873CF /* FlocCommandsSpec.m */; };
 		CB1B4BFB1762413D00BACBB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFA1762413D00BACBB8 /* UIKit.framework */; };
 		CB1B4BFD1762413D00BACBB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFC1762413D00BACBB8 /* Foundation.framework */; };
 		CB1B4BFF1762413D00BACBB8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFE1762413D00BACBB8 /* CoreGraphics.framework */; };
@@ -20,7 +21,7 @@
 		CB1B4C1A1762413D00BACBB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFA1762413D00BACBB8 /* UIKit.framework */; };
 		CB1B4C1B1762413D00BACBB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFC1762413D00BACBB8 /* Foundation.framework */; };
 		CB1B4C231762413D00BACBB8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB1B4C211762413D00BACBB8 /* InfoPlist.strings */; };
-		CB1B4C261762413D00BACBB8 /* Floc_CommandsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1B4C251762413D00BACBB8 /* Floc_CommandsTests.m */; };
+		DD8C8488CF234212A0766D48 /* libPods-Floc-CommandsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0666D5A0D91246CD9AAF468C /* libPods-Floc-CommandsTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0666D5A0D91246CD9AAF468C /* libPods-Floc-CommandsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Floc-CommandsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D4DF972C11F868C7A5873CF /* FlocCommandsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlocCommandsSpec.m; sourceTree = "<group>"; };
 		CB1B4BF71762413D00BACBB8 /* Floc-Commands.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Floc-Commands.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1B4BFA1762413D00BACBB8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CB1B4BFC1762413D00BACBB8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -51,8 +54,7 @@
 		CB1B4C181762413D00BACBB8 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		CB1B4C201762413D00BACBB8 /* Floc-CommandsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Floc-CommandsTests-Info.plist"; sourceTree = "<group>"; };
 		CB1B4C221762413D00BACBB8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CB1B4C241762413D00BACBB8 /* Floc_CommandsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Floc_CommandsTests.h; sourceTree = "<group>"; };
-		CB1B4C251762413D00BACBB8 /* Floc_CommandsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Floc_CommandsTests.m; sourceTree = "<group>"; };
+		D8C60B7B328E4429B7854C8A /* Pods-Floc-CommandsTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Floc-CommandsTests.xcconfig"; path = "Pods/Pods-Floc-CommandsTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				CB1B4C191762413D00BACBB8 /* SenTestingKit.framework in Frameworks */,
 				CB1B4C1A1762413D00BACBB8 /* UIKit.framework in Frameworks */,
 				CB1B4C1B1762413D00BACBB8 /* Foundation.framework in Frameworks */,
+				DD8C8488CF234212A0766D48 /* libPods-Floc-CommandsTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +89,7 @@
 				CB1B4C1E1762413D00BACBB8 /* Floc-CommandsTests */,
 				CB1B4BF91762413D00BACBB8 /* Frameworks */,
 				CB1B4BF81762413D00BACBB8 /* Products */,
+				D8C60B7B328E4429B7854C8A /* Pods-Floc-CommandsTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +109,7 @@
 				CB1B4BFC1762413D00BACBB8 /* Foundation.framework */,
 				CB1B4BFE1762413D00BACBB8 /* CoreGraphics.framework */,
 				CB1B4C181762413D00BACBB8 /* SenTestingKit.framework */,
+				0666D5A0D91246CD9AAF468C /* libPods-Floc-CommandsTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -136,9 +141,8 @@
 		CB1B4C1E1762413D00BACBB8 /* Floc-CommandsTests */ = {
 			isa = PBXGroup;
 			children = (
-				CB1B4C241762413D00BACBB8 /* Floc_CommandsTests.h */,
-				CB1B4C251762413D00BACBB8 /* Floc_CommandsTests.m */,
 				CB1B4C1F1762413D00BACBB8 /* Supporting Files */,
+				8D4DF972C11F868C7A5873CF /* FlocCommandsSpec.m */,
 			);
 			path = "Floc-CommandsTests";
 			sourceTree = "<group>";
@@ -176,10 +180,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CB1B4C2C1762413D00BACBB8 /* Build configuration list for PBXNativeTarget "Floc-CommandsTests" */;
 			buildPhases = (
+				B7736229273543DF8D14E67B /* Check Pods Manifest.lock */,
 				CB1B4C121762413D00BACBB8 /* Sources */,
 				CB1B4C131762413D00BACBB8 /* Frameworks */,
 				CB1B4C141762413D00BACBB8 /* Resources */,
 				CB1B4C151762413D00BACBB8 /* ShellScript */,
+				0AB1B5EC977E43AEB3C868B0 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -241,6 +247,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0AB1B5EC977E43AEB3C868B0 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-Floc-CommandsTests-resources.sh\"\n";
+		};
+		B7736229273543DF8D14E67B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+		};
 		CB1B4C151762413D00BACBB8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -270,7 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB1B4C261762413D00BACBB8 /* Floc_CommandsTests.m in Sources */,
+				8D4DF20738A1B9E1C49C5B8D /* FlocCommandsSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,9 +420,11 @@
 		};
 		CB1B4C2D1762413D00BACBB8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D8C60B7B328E4429B7854C8A /* Pods-Floc-CommandsTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Floc-Commands.app/Floc-Commands";
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
@@ -403,9 +439,11 @@
 		};
 		CB1B4C2E1762413D00BACBB8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D8C60B7B328E4429B7854C8A /* Pods-Floc-CommandsTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Floc-Commands.app/Floc-Commands";
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
@@ -437,6 +475,7 @@
 				CB1B4C2B1762413D00BACBB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CB1B4C2C1762413D00BACBB8 /* Build configuration list for PBXNativeTarget "Floc-CommandsTests" */ = {
 			isa = XCConfigurationList;
@@ -445,6 +484,7 @@
 				CB1B4C2E1762413D00BACBB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
