@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D4DF17664E0991D23ECA344 /* FLCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF8A6387B65EE025D0AAA /* FLCommand.m */; };
 		8D4DF20738A1B9E1C49C5B8D /* FlocCommandsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF972C11F868C7A5873CF /* FlocCommandsSpec.m */; };
+		8D4DF747BE2E730D5F68A096 /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF37015AC742B3FF931F8 /* Command.m */; };
+		8D4DFB2E525F653DA0FB846C /* FLCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFDA15A77BF154E3BA59F /* FLCommandSpec.m */; };
 		CB1B4BFB1762413D00BACBB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFA1762413D00BACBB8 /* UIKit.framework */; };
 		CB1B4BFD1762413D00BACBB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFC1762413D00BACBB8 /* Foundation.framework */; };
 		CB1B4BFF1762413D00BACBB8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFE1762413D00BACBB8 /* CoreGraphics.framework */; };
@@ -36,7 +39,12 @@
 
 /* Begin PBXFileReference section */
 		0666D5A0D91246CD9AAF468C /* libPods-Floc-CommandsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Floc-CommandsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D4DF13F363D4FB66660C652 /* Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
+		8D4DF37015AC742B3FF931F8 /* Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Command.m; sourceTree = "<group>"; };
+		8D4DF8A6387B65EE025D0AAA /* FLCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLCommand.m; sourceTree = "<group>"; };
 		8D4DF972C11F868C7A5873CF /* FlocCommandsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlocCommandsSpec.m; sourceTree = "<group>"; };
+		8D4DFD5D0BE3981528ABD622 /* FLCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLCommand.h; sourceTree = "<group>"; };
+		8D4DFDA15A77BF154E3BA59F /* FLCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLCommandSpec.m; sourceTree = "<group>"; };
 		CB1B4BF71762413D00BACBB8 /* Floc-Commands.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Floc-Commands.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1B4BFA1762413D00BACBB8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CB1B4BFC1762413D00BACBB8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -82,6 +90,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D4DF00CD2B27C848A3A8734 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				8D4DF37015AC742B3FF931F8 /* Command.m */,
+				8D4DF13F363D4FB66660C652 /* Command.h */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
+		8D4DF83EC14CA1B70B8F7AD8 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8D4DF8A6387B65EE025D0AAA /* FLCommand.m */,
+				8D4DFD5D0BE3981528ABD622 /* FLCommand.h */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		CB1B4BEE1762413D00BACBB8 = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +146,7 @@
 				CB1B4C091762413D00BACBB8 /* AppDelegate.h */,
 				CB1B4C0A1762413D00BACBB8 /* AppDelegate.m */,
 				CB1B4C011762413D00BACBB8 /* Supporting Files */,
+				8D4DF83EC14CA1B70B8F7AD8 /* Classes */,
 			);
 			path = "Floc-Commands";
 			sourceTree = "<group>";
@@ -143,6 +170,8 @@
 			children = (
 				CB1B4C1F1762413D00BACBB8 /* Supporting Files */,
 				8D4DF972C11F868C7A5873CF /* FlocCommandsSpec.m */,
+				8D4DFDA15A77BF154E3BA59F /* FLCommandSpec.m */,
+				8D4DF00CD2B27C848A3A8734 /* Commands */,
 			);
 			path = "Floc-CommandsTests";
 			sourceTree = "<group>";
@@ -297,6 +326,7 @@
 			files = (
 				CB1B4C071762413D00BACBB8 /* main.m in Sources */,
 				CB1B4C0B1762413D00BACBB8 /* AppDelegate.m in Sources */,
+				8D4DF17664E0991D23ECA344 /* FLCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +335,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D4DF20738A1B9E1C49C5B8D /* FlocCommandsSpec.m in Sources */,
+				8D4DFB2E525F653DA0FB846C /* FLCommandSpec.m in Sources */,
+				8D4DF747BE2E730D5F68A096 /* Command.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
