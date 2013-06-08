@@ -7,22 +7,22 @@
 #import "Command.h"
 
 @interface Command ()
-@property(nonatomic) BOOL didStartExecute;
+@property(nonatomic) BOOL didStartExecution;
 @end
 
 @implementation Command
 
 - (void)execute {
     [super execute];
-    self.didStartExecute = YES;
+    self.didStartExecution = YES;
 }
 
 - (BOOL)isInInitialState {
-    return self.didStartExecute == NO;
+    return !self.didStartExecution;
 }
 
 - (BOOL)isInExecuteState {
-    return self.didStartExecute == YES;;
+    return self.didStartExecution;
 }
 
 @end

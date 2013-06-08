@@ -9,8 +9,12 @@
 /* Begin PBXBuildFile section */
 		8D4DF17664E0991D23ECA344 /* FLCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF8A6387B65EE025D0AAA /* FLCommand.m */; };
 		8D4DF20738A1B9E1C49C5B8D /* FlocCommandsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF972C11F868C7A5873CF /* FlocCommandsSpec.m */; };
+		8D4DF7299F14B6F83281E420 /* FLAsyncCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF1A88582813BF5A8846A /* FLAsyncCommand.m */; };
 		8D4DF747BE2E730D5F68A096 /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF37015AC742B3FF931F8 /* Command.m */; };
+		8D4DF7A0215832EB0168B668 /* AsyncCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF945BABE9236D3292936 /* AsyncCommand.m */; };
 		8D4DFB2E525F653DA0FB846C /* FLCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFDA15A77BF154E3BA59F /* FLCommandSpec.m */; };
+		8D4DFBFB78C41429D07A6D9A /* AsyncCommandDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF66B63F99143A6768263 /* AsyncCommandDelegate.m */; };
+		8D4DFD915A21496D623D6330 /* FLAsyncCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF3A2130E911C635E0F51 /* FLAsyncCommandSpec.m */; };
 		CB1B4BFB1762413D00BACBB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFA1762413D00BACBB8 /* UIKit.framework */; };
 		CB1B4BFD1762413D00BACBB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFC1762413D00BACBB8 /* Foundation.framework */; };
 		CB1B4BFF1762413D00BACBB8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFE1762413D00BACBB8 /* CoreGraphics.framework */; };
@@ -39,10 +43,17 @@
 
 /* Begin PBXFileReference section */
 		0666D5A0D91246CD9AAF468C /* libPods-Floc-CommandsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Floc-CommandsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D4DF0EEC14BE01F514CEFA7 /* AsyncCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncCommand.h; sourceTree = "<group>"; };
 		8D4DF13F363D4FB66660C652 /* Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
+		8D4DF1A88582813BF5A8846A /* FLAsyncCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAsyncCommand.m; sourceTree = "<group>"; };
 		8D4DF37015AC742B3FF931F8 /* Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Command.m; sourceTree = "<group>"; };
+		8D4DF3A2130E911C635E0F51 /* FLAsyncCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAsyncCommandSpec.m; sourceTree = "<group>"; };
+		8D4DF66B63F99143A6768263 /* AsyncCommandDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncCommandDelegate.m; sourceTree = "<group>"; };
 		8D4DF8A6387B65EE025D0AAA /* FLCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLCommand.m; sourceTree = "<group>"; };
+		8D4DF945BABE9236D3292936 /* AsyncCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncCommand.m; sourceTree = "<group>"; };
 		8D4DF972C11F868C7A5873CF /* FlocCommandsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlocCommandsSpec.m; sourceTree = "<group>"; };
+		8D4DFA090FEE0362558DC034 /* FLAsyncCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAsyncCommand.h; sourceTree = "<group>"; };
+		8D4DFCA417E5A16F802098AB /* AsyncCommandDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncCommandDelegate.h; sourceTree = "<group>"; };
 		8D4DFD5D0BE3981528ABD622 /* FLCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLCommand.h; sourceTree = "<group>"; };
 		8D4DFDA15A77BF154E3BA59F /* FLCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLCommandSpec.m; sourceTree = "<group>"; };
 		CB1B4BF71762413D00BACBB8 /* Floc-Commands.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Floc-Commands.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,8 +106,19 @@
 			children = (
 				8D4DF37015AC742B3FF931F8 /* Command.m */,
 				8D4DF13F363D4FB66660C652 /* Command.h */,
+				8D4DF945BABE9236D3292936 /* AsyncCommand.m */,
+				8D4DF0EEC14BE01F514CEFA7 /* AsyncCommand.h */,
 			);
 			path = Commands;
+			sourceTree = "<group>";
+		};
+		8D4DF313DCB1DC7CE8B318A2 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8D4DF66B63F99143A6768263 /* AsyncCommandDelegate.m */,
+				8D4DFCA417E5A16F802098AB /* AsyncCommandDelegate.h */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		8D4DF83EC14CA1B70B8F7AD8 /* Classes */ = {
@@ -104,6 +126,8 @@
 			children = (
 				8D4DF8A6387B65EE025D0AAA /* FLCommand.m */,
 				8D4DFD5D0BE3981528ABD622 /* FLCommand.h */,
+				8D4DF1A88582813BF5A8846A /* FLAsyncCommand.m */,
+				8D4DFA090FEE0362558DC034 /* FLAsyncCommand.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -172,6 +196,8 @@
 				8D4DF972C11F868C7A5873CF /* FlocCommandsSpec.m */,
 				8D4DFDA15A77BF154E3BA59F /* FLCommandSpec.m */,
 				8D4DF00CD2B27C848A3A8734 /* Commands */,
+				8D4DF3A2130E911C635E0F51 /* FLAsyncCommandSpec.m */,
+				8D4DF313DCB1DC7CE8B318A2 /* Helpers */,
 			);
 			path = "Floc-CommandsTests";
 			sourceTree = "<group>";
@@ -327,6 +353,7 @@
 				CB1B4C071762413D00BACBB8 /* main.m in Sources */,
 				CB1B4C0B1762413D00BACBB8 /* AppDelegate.m in Sources */,
 				8D4DF17664E0991D23ECA344 /* FLCommand.m in Sources */,
+				8D4DF7299F14B6F83281E420 /* FLAsyncCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +364,9 @@
 				8D4DF20738A1B9E1C49C5B8D /* FlocCommandsSpec.m in Sources */,
 				8D4DFB2E525F653DA0FB846C /* FLCommandSpec.m in Sources */,
 				8D4DF747BE2E730D5F68A096 /* Command.m in Sources */,
+				8D4DFD915A21496D623D6330 /* FLAsyncCommandSpec.m in Sources */,
+				8D4DF7A0215832EB0168B668 /* AsyncCommand.m in Sources */,
+				8D4DFBFB78C41429D07A6D9A /* AsyncCommandDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
