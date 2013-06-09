@@ -5,9 +5,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AsyncCommand.h"
+#import "FLSequenceCommand.h"
 
-@interface AsyncCommandDelegate : NSObject <FLAsyncCommandDelegate>
+@interface SequenceCommand : FLSequenceCommand
 - (BOOL)isInInitialState;
+- (BOOL)isInExecuteState;
 - (BOOL)isInDidExecuteWithoutErrorState;
 - (BOOL)isInDidExecuteWithErrorState;
 - (BOOL)isInCancelledState;

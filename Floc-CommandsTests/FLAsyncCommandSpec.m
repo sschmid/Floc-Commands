@@ -16,8 +16,11 @@ SPEC_BEGIN(FLAsyncCommandSpec)
             context(@"when instantiated", ^{
 
                 __block AsyncCommand *command;
+                __block AsyncCommandDelegate *delegate;
                 beforeEach(^{
                     command = [[AsyncCommand alloc] init];
+                    delegate = [[AsyncCommandDelegate alloc] init];
+                    command.delegate = delegate;
                 });
 
                 it(@"instantiates FLAsyncCommand", ^{
@@ -27,12 +30,13 @@ SPEC_BEGIN(FLAsyncCommandSpec)
 
                 it(@"is in initial state", ^{
                     [[theValue(command.isInInitialState) should] beYes];
+                    [[theValue(delegate.isInInitialState) should] beYes];
                 });
 
                 context(@"when executed without an error", ^{
 
                     beforeEach(^{
-                        command.asyncResult = [[NSObject alloc] init];
+                        command.executeWithError = NO;
                         [command execute];
                     });
 
@@ -42,6 +46,7 @@ SPEC_BEGIN(FLAsyncCommandSpec)
 
                     it(@"is in did execute without error state", ^{
                         [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(delegate.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                     });
 
                 });
@@ -49,7 +54,7 @@ SPEC_BEGIN(FLAsyncCommandSpec)
                 context(@"when executed with an error", ^{
 
                     beforeEach(^{
-                        command.asyncResult = nil;
+                        command.executeWithError = YES;
                         [command execute];
                     });
 
@@ -59,6 +64,7 @@ SPEC_BEGIN(FLAsyncCommandSpec)
 
                     it(@"is in did execute with error state", ^{
                         [[expectFutureValue(theValue(command.isInDidExecuteWithErrorState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(delegate.isInDidExecuteWithErrorState)) shouldEventually] beYes];
                     });
 
                 });
@@ -66,75 +72,19 @@ SPEC_BEGIN(FLAsyncCommandSpec)
                 context(@"when cancelled", ^{
 
                     beforeEach(^{
-                        command.asyncResult = nil;
+                        command.executeWithError = NO;
                         [command execute];
                         [command cancel];
                     });
 
                     it(@"is in cancelled state", ^{
                         [[theValue(command.isInCancelledState) should] beYes];
+                        [[theValue(delegate.isInCancelledState) should] beYes];
                     });
 
                     it(@"cancels execution", ^{
                         [[expectFutureValue(theValue(command.isInCancelledState)) shouldEventually] beYes];
-                    });
-
-                });
-
-                context(@"when delegate assigned", ^{
-
-                    __block AsyncCommandDelegate *delegate;
-                    beforeEach(^{
-                        delegate = [[AsyncCommandDelegate alloc] init];
-                        command.delegate = delegate;
-                    });
-
-                    it(@"is in initial state", ^{
-                        [[theValue(delegate.isInInitialState) should] beYes];
-                    });
-
-                    context(@"when executed without an error", ^{
-
-                        beforeEach(^{
-                            command.asyncResult = [[NSObject alloc] init];
-                            [command execute];
-                        });
-
-                        it(@"delegates completion without an error", ^{
-                            [[expectFutureValue(theValue(delegate.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                        });
-
-                    });
-
-                    context(@"when executed with an error", ^{
-
-                        beforeEach(^{
-                            command.asyncResult = nil;
-                            [command execute];
-                        });
-
-                        it(@"delegates completion with an error", ^{
-                            [[expectFutureValue(theValue(delegate.isInDidExecuteWithErrorState)) shouldEventually] beYes];
-                        });
-
-                    });
-
-                    context(@"when cancelled", ^{
-
-                        beforeEach(^{
-                            command.asyncResult = nil;
-                            [command execute];
-                            [command cancel];
-                        });
-
-                        it(@"delegates cancel", ^{
-                            [[theValue(delegate.isInCancelState) should] beYes];
-                        });
-
-                        it(@"cancels execution", ^{
-                            [[expectFutureValue(theValue(command.isInCancelledState)) shouldEventually] beYes];
-                        });
-
+                        [[expectFutureValue(theValue(delegate.isInCancelledState)) shouldEventually] beYes];
                     });
 
                 });

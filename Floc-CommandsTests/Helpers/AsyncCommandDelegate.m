@@ -45,7 +45,7 @@
             !self.cancelled;
 }
 
-- (BOOL)isInCancelState {
+- (BOOL)isInCancelledState {
     return !self.didExecute &&
             self.error == nil &&
             self.cancelled;

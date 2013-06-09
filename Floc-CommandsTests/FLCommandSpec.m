@@ -19,25 +19,17 @@ SPEC_BEGIN(FLCommandSpec)
                 });
 
                 it(@"instantiates Command", ^{
-                    [[command should] beKindOfClass:[Command class]];
+                    [[command should] beKindOfClass:[FLCommand class]];
                 });
 
                 it(@"is in initial state", ^{
                     [[theValue(command.isInInitialState) should] beYes];
                 });
 
-                it(@"is not in execute state", ^{
-                    [[theValue(command.isInExecuteState) should] beNo];
-                });
-
                 context(@"when executed", ^{
 
                     beforeEach(^{
                         [command execute];
-                    });
-
-                    it(@"is not in initial state", ^{
-                        [[theValue(command.isInInitialState) should] beNo];
                     });
 
                     it(@"is in execute state", ^{

@@ -8,8 +8,8 @@
 #import "FLAsyncCommand.h"
 
 @interface AsyncCommand : FLAsyncCommand
-@property(nonatomic, strong) id asyncResult;
-
+@property (nonatomic) BOOL executeWithError;
+@property (nonatomic) BOOL executeAndCancel;
 - (BOOL)isInInitialState;
 - (BOOL)isInExecuteState;
 - (BOOL)isInDidExecuteWithoutErrorState;
