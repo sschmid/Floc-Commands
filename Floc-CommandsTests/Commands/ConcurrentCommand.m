@@ -15,17 +15,24 @@
 @implementation ConcurrentCommand
 - (void)execute {
     self.didStartExecution = YES;
+    self.didCompleteExecution = NO;
+    self.didGetCancelled = NO;
+    self.error = nil;
     [super execute];
 }
 
 - (void)cancel {
     self.didGetCancelled = YES;
+    self.didGetCancelledCount++;
     [super cancel];
 }
 
 - (void)didExecuteWithError:(NSError *)error {
+    self.didStartExecution = YES;
+    self.didGetCancelled = NO;
     self.didCompleteExecution = YES;
     self.error = error;
+    self.didCompleteExecutionCount++;
     [super didExecuteWithError:error];
 }
 

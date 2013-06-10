@@ -39,7 +39,7 @@
 
 - (void)execute {
     [super execute];
-    // TODO: execute 2 times, index is out of sync
+    self.commandIndex = 0;
     [self executeNextCommand];
 }
 

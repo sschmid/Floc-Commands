@@ -11,6 +11,9 @@
 @property (nonatomic) float delay;
 @property (nonatomic) BOOL executeWithError;
 @property (nonatomic) BOOL executeAndCancel;
+@property(nonatomic) int didCompleteExecutionCount;
+@property(nonatomic) int didGetCancelledCount;
+
 - (BOOL)isInInitialState;
 - (BOOL)isInExecuteState;
 - (BOOL)isInDidExecuteWithoutErrorState;

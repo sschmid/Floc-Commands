@@ -35,6 +35,8 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                 it(@"is in initial state", ^{
                     [[theValue(command.isInInitialState) should] beYes];
                     [[theValue(delegate.isInInitialState) should] beYes];
+                    [[theValue(command.didCompleteExecutionCount) should] equal:theValue(0)];
+                    [[theValue(command.didGetCancelledCount) should] equal:theValue(0)];
                 });
 
                 it(@"contains no commands", ^{
@@ -50,6 +52,8 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     it(@"executes immediately", ^{
                         [[theValue(command.isInDidExecuteWithoutErrorState) should] beYes];
                         [[theValue(delegate.isInDidExecuteWithoutErrorState) should] beYes];
+                        [[theValue(command.didCompleteExecutionCount) should] equal:theValue(1)];
+                        [[theValue(command.didGetCancelledCount) should] equal:theValue(0)];
                     });
 
                 });
@@ -91,6 +95,9 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
 
                         [[theValue(command.isInDidExecuteWithoutErrorState) should] beYes];
                         [[theValue(delegate.isInDidExecuteWithoutErrorState) should] beYes];
+
+                        [[theValue(command.didCompleteExecutionCount) should] equal:theValue(1)];
+                        [[theValue(command.didGetCancelledCount) should] equal:theValue(0)];
                     });
 
                 });
@@ -133,6 +140,8 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                         [[expectFutureValue(theValue(command3.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                         [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                         [[expectFutureValue(theValue(delegate.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(command.didCompleteExecutionCount)) shouldEventually] equal:theValue(1)];
+                        [[expectFutureValue(theValue(command.didGetCancelledCount)) shouldEventually] equal:theValue(0)];
                     });
 
                     context(@"when cancelled", ^{
@@ -147,6 +156,8 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                             [[theValue(command3.isInCancelledState) should] beYes];
                             [[theValue(command.isInCancelledState) should] beYes];
                             [[theValue(delegate.isInCancelledState) should] beYes];
+                            [[theValue(command.didCompleteExecutionCount) should] equal:theValue(0)];
+                            [[theValue(command.didGetCancelledCount) should] equal:theValue(1)];
                         });
 
                         it(@"cancels execution", ^{
@@ -155,7 +166,74 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                             [[expectFutureValue(theValue(command3.isInCancelledState)) shouldEventually] beYes];
                             [[expectFutureValue(theValue(command.isInCancelledState)) shouldEventually] beYes];
                             [[expectFutureValue(theValue(delegate.isInCancelledState)) shouldEventually] beYes];
+                            [[expectFutureValue(theValue(command.didCompleteExecutionCount)) shouldEventually] equal:theValue(0)];
+                            [[expectFutureValue(theValue(command.didGetCancelledCount)) shouldEventually] equal:theValue(1)];
                         });
+                    });
+
+                    context(@"when cancelled multiple times", ^{
+
+                        beforeEach(^{
+                            [command cancel];
+                            [command cancel];
+                        });
+
+                        it(@"gets cancelled only once", ^{
+                            [[theValue(command1.isInCancelledState) should] beYes];
+                            [[theValue(command2.isInCancelledState) should] beYes];
+                            [[theValue(command3.isInCancelledState) should] beYes];
+                            [[theValue(command.isInCancelledState) should] beYes];
+                            [[theValue(delegate.isInCancelledState) should] beYes];
+
+                            [[theValue(command1.didGetCancelledCount) should] equal:theValue(1)];
+                            [[theValue(command2.didGetCancelledCount) should] equal:theValue(1)];
+                            [[theValue(command3.didGetCancelledCount) should] equal:theValue(1)];
+
+                            [[theValue(command.didCompleteExecutionCount) should] equal:theValue(0)];
+                            [[theValue(command.didGetCancelledCount) should] equal:theValue(2)];
+                        });
+
+                    });
+
+                });
+
+                context(@"when executed multiple times", ^{
+
+                    it(@"executes all commands multiple times", ^{
+                        [command execute];
+                        [[theValue(command1.isInExecuteState) should] beYes];
+                        [[theValue(command2.isInExecuteState) should] beYes];
+                        [[theValue(command3.isInExecuteState) should] beYes];
+                        [[theValue(command.isInExecuteState) should] beYes];
+
+                        [[expectFutureValue(theValue(command1.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(command2.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(command3.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(delegate.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+
+                        [[expectFutureValue(theValue(command1.didCompleteExecutionCount)) shouldEventually] equal:theValue(1)];
+                        [[expectFutureValue(theValue(command2.didCompleteExecutionCount)) shouldEventually] equal:theValue(1)];
+                        [[expectFutureValue(theValue(command3.didCompleteExecutionCount)) shouldEventually] equal:theValue(1)];
+
+                        [command execute];
+                        [[theValue(command1.isInExecuteState) should] beYes];
+                        [[theValue(command2.isInExecuteState) should] beYes];
+                        [[theValue(command3.isInExecuteState) should] beYes];
+                        [[theValue(command.isInExecuteState) should] beYes];
+
+                        [[expectFutureValue(theValue(command1.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(command2.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(command3.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(delegate.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+
+                        [[expectFutureValue(theValue(command1.didCompleteExecutionCount)) shouldEventually] equal:theValue(2)];
+                        [[expectFutureValue(theValue(command2.didCompleteExecutionCount)) shouldEventually] equal:theValue(2)];
+                        [[expectFutureValue(theValue(command3.didCompleteExecutionCount)) shouldEventually] equal:theValue(2)];
+
+                        [[expectFutureValue(theValue(command.didCompleteExecutionCount)) shouldEventually] equal:theValue(2)];
+                        [[expectFutureValue(theValue(command.didGetCancelledCount)) shouldEventually] equal:theValue(0)];
                     });
 
                 });
@@ -199,6 +277,9 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     [[expectFutureValue(theValue(command3.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                     [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                     [[expectFutureValue(theValue(delegate.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+
+                    [[expectFutureValue(theValue(command.didCompleteExecutionCount)) shouldEventually] equal:theValue(1)];
+                    [[expectFutureValue(theValue(command.didGetCancelledCount)) shouldEventually] equal:theValue(0)];
                 });
 
             });
@@ -239,6 +320,9 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     [[expectFutureValue(theValue(command3.isInCancelledState)) shouldEventually] beYes];
                     [[expectFutureValue(theValue(command.isInDidExecuteWithErrorState)) shouldEventually] beYes];
                     [[expectFutureValue(theValue(delegate.isInDidExecuteWithErrorState)) shouldEventually] beYes];
+
+                    [[expectFutureValue(theValue(command.didCompleteExecutionCount)) shouldEventually] equal:theValue(1)];
+                    [[expectFutureValue(theValue(command.didGetCancelledCount)) shouldEventually] equal:theValue(0)];
                 });
 
             });
@@ -276,6 +360,9 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     [[expectFutureValue(theValue(command3.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                     [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                     [[expectFutureValue(theValue(delegate.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+
+                    [[expectFutureValue(theValue(command.didCompleteExecutionCount)) shouldEventually] equal:theValue(1)];
+                    [[expectFutureValue(theValue(command.didGetCancelledCount)) shouldEventually] equal:theValue(0)];
                 });
 
             });
@@ -313,6 +400,9 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     [[expectFutureValue(theValue(command3.isInCancelledState)) shouldEventually] beYes];
                     [[expectFutureValue(theValue(command.isInCancelledState)) shouldEventually] beYes];
                     [[expectFutureValue(theValue(delegate.isInCancelledState)) shouldEventually] beYes];
+
+                    [[expectFutureValue(theValue(command.didCompleteExecutionCount)) shouldEventually] equal:theValue(0)];
+                    [[expectFutureValue(theValue(command.didGetCancelledCount)) shouldEventually] equal:theValue(1)];
                 });
 
             });

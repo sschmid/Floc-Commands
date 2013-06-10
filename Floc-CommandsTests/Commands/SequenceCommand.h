@@ -9,6 +9,8 @@
 #import "FLSequenceCommand.h"
 
 @interface SequenceCommand : FLSequenceCommand
+@property(nonatomic) int didCompleteExecutionCount;
+@property(nonatomic) int didGetCancelledCount;
 - (BOOL)isInInitialState;
 - (BOOL)isInExecuteState;
 - (BOOL)isInDidExecuteWithoutErrorState;
