@@ -15,8 +15,7 @@
 @end
 
 @interface FLAsyncCommand : FLCommand
-@property (nonatomic, weak) id <FLAsyncCommandDelegate> delegate;
-
+@property(nonatomic, weak) id <FLAsyncCommandDelegate> delegate;
 - (void)cancel;
 
 // Call in subclasses when execution completed

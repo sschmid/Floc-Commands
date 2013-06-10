@@ -5,12 +5,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FLAsyncCommand.h"
+#import "FLConcurrentCommand.h"
 
-@interface AsyncCommand : FLAsyncCommand
-@property (nonatomic) float delay;
-@property (nonatomic) BOOL executeWithError;
-@property (nonatomic) BOOL executeAndCancel;
+@interface ConcurrentCommand : FLConcurrentCommand
 - (BOOL)isInInitialState;
 - (BOOL)isInExecuteState;
 - (BOOL)isInDidExecuteWithoutErrorState;

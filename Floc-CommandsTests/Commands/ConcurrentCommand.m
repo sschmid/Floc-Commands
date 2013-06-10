@@ -4,48 +4,22 @@
 // contact@sschmid.com
 //
 
-#import "AsyncCommand.h"
-
-@interface AsyncCommand ()
+#import "ConcurrentCommand.h"
+@interface ConcurrentCommand ()
 @property(nonatomic) BOOL didStartExecution;
 @property(nonatomic) BOOL didCompleteExecution;
 @property(nonatomic) BOOL didGetCancelled;
 @property(nonatomic) NSError *error;
-//
-@property(nonatomic, strong) NSTimer *timer;
 @end
 
-@implementation AsyncCommand
-
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.delay = 1.0/60;
-    }
-
-    return self;
-}
-
-
+@implementation ConcurrentCommand
 - (void)execute {
-    [super execute];
     self.didStartExecution = YES;
-
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:self.delay target:self selector:@selector(didAsyncStuff) userInfo:nil repeats:NO];
-}
-
-- (void)didAsyncStuff {
-    if (self.executeAndCancel)
-        [self cancel];
-    else if (self.executeWithError)
-        [self didExecuteWithError];
-    else
-        [self didExecute];
+    [super execute];
 }
 
 - (void)cancel {
     self.didGetCancelled = YES;
-    [self.timer invalidate];
     [super cancel];
 }
 
@@ -92,5 +66,4 @@
             self.error == nil &&
             self.didGetCancelled;
 }
-
 @end
