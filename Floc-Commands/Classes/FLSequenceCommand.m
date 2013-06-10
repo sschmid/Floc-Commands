@@ -7,6 +7,8 @@
 #import "FLSequenceCommand.h"
 
 @interface FLSequenceCommand ()
+@property(nonatomic, readwrite) BOOL stopOnError;
+@property(nonatomic, readwrite) BOOL cancelOnCancel;
 @property(nonatomic, strong, readwrite) NSArray *commands;
 @property(nonatomic) uint commandIndex;
 @property(nonatomic, strong) FLAsyncCommand *currentAsyncCommand;
@@ -20,9 +22,16 @@
 }
 
 - (id)initWithCommands:(NSArray *)commands {
+    self = [self initWithCommands:commands stopOnError:NO cancelOnCancel:NO];
+    return self;
+}
+
+- (id)initWithCommands:(NSArray *)commands stopOnError:(BOOL)stopOnError cancelOnCancel:(BOOL)cancelOnCancel {
     self = [super init];
     if (self) {
         self.commands = [commands copy];
+        self.stopOnError = stopOnError;
+        self.cancelOnCancel = cancelOnCancel;
     }
 
     return self;
