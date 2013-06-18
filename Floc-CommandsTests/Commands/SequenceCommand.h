@@ -5,12 +5,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AsyncCommand.h"
+#import "Command.h"
 #import "FLSequenceCommand.h"
 
 @interface SequenceCommand : FLSequenceCommand
-@property(nonatomic) int didCompleteExecutionCount;
-@property(nonatomic) int didGetCancelledCount;
+@property(nonatomic) int willExecuteCount;
+@property(nonatomic) int didExecuteCount;
+@property(nonatomic) int didCancelCount;
+
 - (BOOL)isInInitialState;
 - (BOOL)isInExecuteState;
 - (BOOL)isInDidExecuteWithoutErrorState;

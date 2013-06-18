@@ -10,7 +10,7 @@
 @property(nonatomic, readwrite) BOOL stopOnError;
 @property(nonatomic, readwrite) BOOL cancelOnCancel;
 @property(nonatomic, strong, readwrite) NSArray *commands;
-@property(nonatomic, strong) NSMutableArray *asyncCommands;
+@property(nonatomic, strong) NSMutableArray *executingCommands;
 @end
 
 @implementation FLConcurrentCommand
@@ -29,7 +29,7 @@
     self = [super init];
     if (self) {
         self.commands = [commands copy];
-        self.asyncCommands = [[NSMutableArray alloc] init];
+        self.executingCommands = [[NSMutableArray alloc] init];
         self.stopOnError = stopOnError;
         self.cancelOnCancel = cancelOnCancel;
     }
@@ -41,14 +41,12 @@
     [super execute];
 
     for (FLCommand *command in self.commands) {
-        if ([command isKindOfClass:[FLAsyncCommand class]]) {
-            ((FLAsyncCommand *) command).delegate = self;
-            [self.asyncCommands addObject:command];
-        }
+        [self.executingCommands addObject:command];
+        command.delegate = self;
         [command execute];
     }
 
-    if (self.asyncCommands.count == 0)
+    if (self.executingCommands.count == 0)
         [self didExecute];
 }
 
@@ -58,16 +56,16 @@
 }
 
 - (void)cancelAllExecutingCommands {
-    for (FLAsyncCommand *asyncCommand in self.asyncCommands) {
-        asyncCommand.delegate = nil;
-        [asyncCommand cancel];
+    for (FLCommand *command in self.executingCommands) {
+        command.delegate = nil;
+        [command cancel];
     }
-    [self.asyncCommands removeAllObjects];
+    [self.executingCommands removeAllObjects];
 }
 
-- (void)command:(FLAsyncCommand *)command didExecuteWithError:(NSError *)error {
+- (void)command:(FLCommand *)command didExecuteWithError:(NSError *)error {
+    [self.executingCommands removeObject:command];
     command.delegate = nil;
-    [self.asyncCommands removeObject:command];
 
     if (self.stopOnError && error) {
         NSLog(@"Command '%@' did execute with an error: %@'\nStopping command '%@'",
@@ -75,14 +73,14 @@
 
         [self cancelAllExecutingCommands];
         [self didExecuteWithError:error];
-    } else if (self.asyncCommands.count == 0) {
+    } else if (self.executingCommands.count == 0) {
         [self didExecute];
     }
 }
 
-- (void)commandCancelled:(FLAsyncCommand *)command {
+- (void)commandCancelled:(FLCommand *)command {
+    [self.executingCommands removeObject:command];
     command.delegate = nil;
-    [self.asyncCommands removeObject:command];
 
     if (self.cancelOnCancel) {
         NSLog(@"Command '%@' got cancelled.\nCancelling command '%@'", command, self);

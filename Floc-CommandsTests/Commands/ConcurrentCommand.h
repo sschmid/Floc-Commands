@@ -8,8 +8,10 @@
 #import "FLConcurrentCommand.h"
 
 @interface ConcurrentCommand : FLConcurrentCommand
-@property(nonatomic) int didCompleteExecutionCount;
-@property(nonatomic) int didGetCancelledCount;
+@property(nonatomic) int willExecuteCount;
+@property(nonatomic) int didExecuteCount;
+@property(nonatomic) int didCancelCount;
+
 - (BOOL)isInInitialState;
 - (BOOL)isInExecuteState;
 - (BOOL)isInDidExecuteWithoutErrorState;

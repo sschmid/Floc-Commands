@@ -11,7 +11,7 @@
 @property(nonatomic, readwrite) BOOL cancelOnCancel;
 @property(nonatomic, strong, readwrite) NSArray *commands;
 @property(nonatomic) uint commandIndex;
-@property(nonatomic, strong) FLAsyncCommand *currentAsyncCommand;
+@property(nonatomic, strong) FLCommand *currentCommand;
 @end
 
 @implementation FLSequenceCommand
@@ -44,30 +44,24 @@
 }
 
 - (void)cancel {
-    self.currentAsyncCommand.delegate = nil;
-    [self.currentAsyncCommand cancel];
+    self.currentCommand.delegate = nil;
+    [self.currentCommand cancel];
     [super cancel];
 }
 
 - (void)executeNextCommand {
     if (self.commandIndex < self.commands.count) {
-        FLCommand *command = self.commands[self.commandIndex++];
-        if ([command isKindOfClass:[FLAsyncCommand class]]) {
-            self.currentAsyncCommand = (FLAsyncCommand *) command;
-            self.currentAsyncCommand.delegate = self;
-            [command execute];
-        } else {
-            [command execute];
-            [self executeNextCommand];
-        }
+        self.currentCommand = self.commands[self.commandIndex++];
+        self.currentCommand.delegate = self;
+        [self.currentCommand execute];
     } else {
         [self didExecute];
     }
 }
 
-- (void)command:(FLAsyncCommand *)command didExecuteWithError:(NSError *)error {
+- (void)command:(FLCommand *)command didExecuteWithError:(NSError *)error {
     command.delegate = nil;
-    self.currentAsyncCommand = nil;
+    self.currentCommand = nil;
 
     if (self.stopOnError && error) {
         NSLog(@"Command '%@' did execute with an error: %@'\nStopping sequence '%@'",
@@ -78,9 +72,9 @@
     }
 }
 
-- (void)commandCancelled:(FLAsyncCommand *)command {
+- (void)commandCancelled:(FLCommand *)command {
     command.delegate = nil;
-    self.currentAsyncCommand = nil;
+    self.currentCommand = nil;
 
     if (self.cancelOnCancel) {
         NSLog(@"Command '%@' got cancelled.\nCancelling sequence '%@'", command, self);

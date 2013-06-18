@@ -15,25 +15,26 @@
 @implementation SequenceCommand
 
 - (void)execute {
+    self.willExecuteCount++;
+
     self.didStartExecution = YES;
     self.didCompleteExecution = NO;
     self.didGetCancelled = NO;
     self.error = nil;
+
     [super execute];
 }
 
 - (void)cancel {
+    self.didCancelCount++;
     self.didGetCancelled = YES;
-    self.didGetCancelledCount++;
     [super cancel];
 }
 
 - (void)didExecuteWithError:(NSError *)error {
-    self.didStartExecution = YES;
-    self.didGetCancelled = NO;
+    self.didExecuteCount++;
     self.didCompleteExecution = YES;
     self.error = error;
-    self.didCompleteExecutionCount++;
     [super didExecuteWithError:error];
 }
 
@@ -74,4 +75,5 @@
             self.error == nil &&
             self.didGetCancelled;
 }
+
 @end

@@ -6,8 +6,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AsyncCommandDelegate : NSObject <FLAsyncCommandDelegate>
+@interface CommandDelegate : NSObject <FLCommandDelegate>
 - (BOOL)isInInitialState;
+- (BOOL)isInExecuteState;
 - (BOOL)isInDidExecuteWithoutErrorState;
 - (BOOL)isInDidExecuteWithErrorState;
 - (BOOL)isInCancelledState;

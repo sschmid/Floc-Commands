@@ -5,9 +5,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FLAsyncCommand.h"
+#import "FLCommand.h"
 
-@interface FLSequenceCommand : FLAsyncCommand <FLAsyncCommandDelegate>
+@interface FLSequenceCommand : FLCommand <FLCommandDelegate>
 @property(nonatomic, readonly) BOOL stopOnError;
 @property(nonatomic, readonly) BOOL cancelOnCancel;
 @property(nonatomic, strong, readonly) NSArray *commands;

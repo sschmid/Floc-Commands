@@ -5,11 +5,9 @@
 //
 
 #import "Kiwi.h"
-#import "FLConcurrentCommand.h"
 #import "ConcurrentCommand.h"
-#import "AsyncCommandDelegate.h"
+#import "CommandDelegate.h"
 #import "Command.h"
-#import "AsyncCommand.h"
 
 SPEC_BEGIN(FLConcurrentCommandSpec)
 
@@ -18,25 +16,26 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
             context(@"when instantiated with no commands", ^{
 
                 __block ConcurrentCommand *command;
-                __block AsyncCommandDelegate *delegate;
+                __block CommandDelegate *delegate;
                 beforeEach(^{
                     command = [[ConcurrentCommand alloc] init];
-                    delegate = [[AsyncCommandDelegate alloc] init];
+                    delegate = [[CommandDelegate alloc] init];
                     command.delegate = delegate;
                 });
 
                 it(@"instantiates FLConcurrentCommand", ^{
-                    [[command should] beKindOfClass:[FLCommand class]];
-                    [[command should] beKindOfClass:[FLAsyncCommand class]];
+                    [[command should] beKindOfClass:[ConcurrentCommand class]];
                     [[command should] beKindOfClass:[FLConcurrentCommand class]];
-                    [[command should] conformsToProtocol:@protocol(FLAsyncCommandDelegate)];
+                    [[command should] beKindOfClass:[FLCommand class]];
+                    [[command should] conformsToProtocol:@protocol(FLCommandDelegate)];
                 });
 
                 it(@"is in initial state", ^{
                     [[theValue(command.isInInitialState) should] beYes];
                     [[theValue(delegate.isInInitialState) should] beYes];
-                    [[theValue(command.didCompleteExecutionCount) should] equal:theValue(0)];
-                    [[theValue(command.didGetCancelledCount) should] equal:theValue(0)];
+                    [[theValue(command.willExecuteCount) should] equal:theValue(0)];
+                    [[theValue(command.didExecuteCount) should] equal:theValue(0)];
+                    [[theValue(command.didCancelCount) should] equal:theValue(0)];
                 });
 
                 it(@"contains no commands", ^{
@@ -52,18 +51,19 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     it(@"executes immediately", ^{
                         [[theValue(command.isInDidExecuteWithoutErrorState) should] beYes];
                         [[theValue(delegate.isInDidExecuteWithoutErrorState) should] beYes];
-                        [[theValue(command.didCompleteExecutionCount) should] equal:theValue(1)];
-                        [[theValue(command.didGetCancelledCount) should] equal:theValue(0)];
+                        [[theValue(command.willExecuteCount) should] equal:theValue(1)];
+                        [[theValue(command.didExecuteCount) should] equal:theValue(1)];
+                        [[theValue(command.didCancelCount) should] equal:theValue(0)];
                     });
 
                 });
 
             });
 
-            context(@"when instantiated with sync commands", ^{
+            context(@"when instantiated with commands", ^{
 
                 __block ConcurrentCommand *command;
-                __block AsyncCommandDelegate *delegate;
+                __block CommandDelegate *delegate;
                 __block Command *command1;
                 __block Command *command2;
                 __block Command *command3;
@@ -73,51 +73,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     command3 = [[Command alloc] init];
 
                     command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3]];
-                    delegate = [[AsyncCommandDelegate alloc] init];
-                    command.delegate = delegate;
-                });
-
-
-                it(@"contains commands", ^{
-                    [[[command.commands should] have:3] commands];
-                });
-
-                context(@"when executed", ^{
-
-                    beforeEach(^{
-                        [command execute];
-                    });
-
-                    it(@"executes immediately", ^{
-                        [[theValue(command1.isInExecuteState) should] beYes];
-                        [[theValue(command2.isInExecuteState) should] beYes];
-                        [[theValue(command3.isInExecuteState) should] beYes];
-
-                        [[theValue(command.isInDidExecuteWithoutErrorState) should] beYes];
-                        [[theValue(delegate.isInDidExecuteWithoutErrorState) should] beYes];
-
-                        [[theValue(command.didCompleteExecutionCount) should] equal:theValue(1)];
-                        [[theValue(command.didGetCancelledCount) should] equal:theValue(0)];
-                    });
-
-                });
-
-            });
-
-            context(@"when instantiated with async commands", ^{
-
-                __block ConcurrentCommand *command;
-                __block AsyncCommandDelegate *delegate;
-                __block AsyncCommand *command1;
-                __block AsyncCommand *command2;
-                __block AsyncCommand *command3;
-                beforeEach(^{
-                    command1 = [[AsyncCommand alloc] init];
-                    command2 = [[AsyncCommand alloc] init];
-                    command3 = [[AsyncCommand alloc] init];
-
-                    command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3]];
-                    delegate = [[AsyncCommandDelegate alloc] init];
+                    delegate = [[CommandDelegate alloc] init];
                     command.delegate = delegate;
                 });
 
@@ -132,6 +88,8 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                         [[theValue(command2.isInExecuteState) should] beYes];
                         [[theValue(command3.isInExecuteState) should] beYes];
                         [[theValue(command.isInExecuteState) should] beYes];
+                        [[theValue(command.willExecuteCount) should] equal:theValue(1)];
+
                     });
 
                     it(@"completes execution", ^{
@@ -140,8 +98,9 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                         [[expectFutureValue(theValue(command3.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                         [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                         [[expectFutureValue(theValue(delegate.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                        [[expectFutureValue(theValue(command.didCompleteExecutionCount)) shouldEventually] equal:theValue(1)];
-                        [[expectFutureValue(theValue(command.didGetCancelledCount)) shouldEventually] equal:theValue(0)];
+                        [[expectFutureValue(theValue(command.willExecuteCount)) shouldEventually] equal:theValue(1)];
+                        [[expectFutureValue(theValue(command.didExecuteCount)) shouldEventually] equal:theValue(1)];
+                        [[expectFutureValue(theValue(command.didCancelCount)) shouldEventually] equal:theValue(0)];
                     });
 
                     context(@"when cancelled", ^{
@@ -156,8 +115,8 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                             [[theValue(command3.isInCancelledState) should] beYes];
                             [[theValue(command.isInCancelledState) should] beYes];
                             [[theValue(delegate.isInCancelledState) should] beYes];
-                            [[theValue(command.didCompleteExecutionCount) should] equal:theValue(0)];
-                            [[theValue(command.didGetCancelledCount) should] equal:theValue(1)];
+                            [[theValue(command.didExecuteCount) should] equal:theValue(0)];
+                            [[theValue(command.didCancelCount) should] equal:theValue(1)];
                         });
 
                         it(@"cancels execution", ^{
@@ -166,8 +125,8 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                             [[expectFutureValue(theValue(command3.isInCancelledState)) shouldEventually] beYes];
                             [[expectFutureValue(theValue(command.isInCancelledState)) shouldEventually] beYes];
                             [[expectFutureValue(theValue(delegate.isInCancelledState)) shouldEventually] beYes];
-                            [[expectFutureValue(theValue(command.didCompleteExecutionCount)) shouldEventually] equal:theValue(0)];
-                            [[expectFutureValue(theValue(command.didGetCancelledCount)) shouldEventually] equal:theValue(1)];
+                            [[expectFutureValue(theValue(command.didExecuteCount)) shouldEventually] equal:theValue(0)];
+                            [[expectFutureValue(theValue(command.didCancelCount)) shouldEventually] equal:theValue(1)];
                         });
                     });
 
@@ -185,12 +144,12 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                             [[theValue(command.isInCancelledState) should] beYes];
                             [[theValue(delegate.isInCancelledState) should] beYes];
 
-                            [[theValue(command1.didGetCancelledCount) should] equal:theValue(1)];
-                            [[theValue(command2.didGetCancelledCount) should] equal:theValue(1)];
-                            [[theValue(command3.didGetCancelledCount) should] equal:theValue(1)];
+                            [[theValue(command1.didCancelCount) should] equal:theValue(1)];
+                            [[theValue(command2.didCancelCount) should] equal:theValue(1)];
+                            [[theValue(command3.didCancelCount) should] equal:theValue(1)];
 
-                            [[theValue(command.didCompleteExecutionCount) should] equal:theValue(0)];
-                            [[theValue(command.didGetCancelledCount) should] equal:theValue(2)];
+                            [[theValue(command.didExecuteCount) should] equal:theValue(0)];
+                            [[theValue(command.didCancelCount) should] equal:theValue(2)];
                         });
 
                     });
@@ -212,15 +171,16 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                         [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                         [[expectFutureValue(theValue(delegate.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
 
-                        [[expectFutureValue(theValue(command1.didCompleteExecutionCount)) shouldEventually] equal:theValue(1)];
-                        [[expectFutureValue(theValue(command2.didCompleteExecutionCount)) shouldEventually] equal:theValue(1)];
-                        [[expectFutureValue(theValue(command3.didCompleteExecutionCount)) shouldEventually] equal:theValue(1)];
+                        [[expectFutureValue(theValue(command1.didExecuteCount)) shouldEventually] equal:theValue(1)];
+                        [[expectFutureValue(theValue(command2.didExecuteCount)) shouldEventually] equal:theValue(1)];
+                        [[expectFutureValue(theValue(command3.didExecuteCount)) shouldEventually] equal:theValue(1)];
 
                         [command execute];
                         [[theValue(command1.isInExecuteState) should] beYes];
                         [[theValue(command2.isInExecuteState) should] beYes];
                         [[theValue(command3.isInExecuteState) should] beYes];
                         [[theValue(command.isInExecuteState) should] beYes];
+                        [[theValue(command.willExecuteCount) should] equal:theValue(2)];
 
                         [[expectFutureValue(theValue(command1.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                         [[expectFutureValue(theValue(command2.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
@@ -228,12 +188,13 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                         [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                         [[expectFutureValue(theValue(delegate.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
 
-                        [[expectFutureValue(theValue(command1.didCompleteExecutionCount)) shouldEventually] equal:theValue(2)];
-                        [[expectFutureValue(theValue(command2.didCompleteExecutionCount)) shouldEventually] equal:theValue(2)];
-                        [[expectFutureValue(theValue(command3.didCompleteExecutionCount)) shouldEventually] equal:theValue(2)];
+                        [[expectFutureValue(theValue(command1.didExecuteCount)) shouldEventually] equal:theValue(2)];
+                        [[expectFutureValue(theValue(command2.didExecuteCount)) shouldEventually] equal:theValue(2)];
+                        [[expectFutureValue(theValue(command3.didExecuteCount)) shouldEventually] equal:theValue(2)];
 
-                        [[expectFutureValue(theValue(command.didCompleteExecutionCount)) shouldEventually] equal:theValue(2)];
-                        [[expectFutureValue(theValue(command.didGetCancelledCount)) shouldEventually] equal:theValue(0)];
+                        [[expectFutureValue(theValue(command.willExecuteCount)) shouldEventually] equal:theValue(2)];
+                        [[expectFutureValue(theValue(command.didExecuteCount)) shouldEventually] equal:theValue(2)];
+                        [[expectFutureValue(theValue(command.didCancelCount)) shouldEventually] equal:theValue(0)];
                     });
 
                 });
@@ -243,23 +204,23 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
             context(@"when instantiated with a failing command and stopOnError is set to NO", ^{
 
                 __block ConcurrentCommand *command;
-                __block AsyncCommandDelegate *delegate;
-                __block AsyncCommand *command1;
-                __block AsyncCommand *command2;
-                __block AsyncCommand *command3;
+                __block CommandDelegate *delegate;
+                __block Command *command1;
+                __block Command *command2;
+                __block Command *command3;
                 beforeEach(^{
-                    command1 = [[AsyncCommand alloc] init];
-                    command2 = [[AsyncCommand alloc] init];
-                    command3 = [[AsyncCommand alloc] init];
+                    command1 = [[Command alloc] init];
+                    command2 = [[Command alloc] init];
+                    command3 = [[Command alloc] init];
 
                     command1.executeWithError = YES;
 
-                    command1.delay = 0.1;
-                    command2.delay = 0.2;
-                    command3.delay = 0.3;
+                    command1.didExecuteDelay = 0.1;
+                    command2.didExecuteDelay = 0.2;
+                    command3.didExecuteDelay = 0.3;
 
                     command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:NO];
-                    delegate = [[AsyncCommandDelegate alloc] init];
+                    delegate = [[CommandDelegate alloc] init];
                     command.delegate = delegate;
                     [command execute];
                 });
@@ -278,31 +239,31 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                     [[expectFutureValue(theValue(delegate.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
 
-                    [[expectFutureValue(theValue(command.didCompleteExecutionCount)) shouldEventually] equal:theValue(1)];
-                    [[expectFutureValue(theValue(command.didGetCancelledCount)) shouldEventually] equal:theValue(0)];
+                    [[expectFutureValue(theValue(command.didExecuteCount)) shouldEventually] equal:theValue(1)];
+                    [[expectFutureValue(theValue(command.didCancelCount)) shouldEventually] equal:theValue(0)];
                 });
 
             });
             context(@"when instantiated with a failing command and stopOnError is set to YES", ^{
 
                 __block ConcurrentCommand *command;
-                __block AsyncCommandDelegate *delegate;
-                __block AsyncCommand *command1;
-                __block AsyncCommand *command2;
-                __block AsyncCommand *command3;
+                __block CommandDelegate *delegate;
+                __block Command *command1;
+                __block Command *command2;
+                __block Command *command3;
                 beforeEach(^{
-                    command1 = [[AsyncCommand alloc] init];
-                    command2 = [[AsyncCommand alloc] init];
-                    command3 = [[AsyncCommand alloc] init];
+                    command1 = [[Command alloc] init];
+                    command2 = [[Command alloc] init];
+                    command3 = [[Command alloc] init];
 
                     command1.executeWithError = YES;
 
-                    command1.delay = 0.1;
-                    command2.delay = 0.2;
-                    command3.delay = 0.3;
+                    command1.didExecuteDelay = 0.1;
+                    command2.didExecuteDelay = 0.2;
+                    command3.didExecuteDelay = 0.3;
 
                     command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:YES cancelOnCancel:NO];
-                    delegate = [[AsyncCommandDelegate alloc] init];
+                    delegate = [[CommandDelegate alloc] init];
                     command.delegate = delegate;
                     [command execute];
                 });
@@ -321,8 +282,8 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     [[expectFutureValue(theValue(command.isInDidExecuteWithErrorState)) shouldEventually] beYes];
                     [[expectFutureValue(theValue(delegate.isInDidExecuteWithErrorState)) shouldEventually] beYes];
 
-                    [[expectFutureValue(theValue(command.didCompleteExecutionCount)) shouldEventually] equal:theValue(1)];
-                    [[expectFutureValue(theValue(command.didGetCancelledCount)) shouldEventually] equal:theValue(0)];
+                    [[expectFutureValue(theValue(command.didExecuteCount)) shouldEventually] equal:theValue(1)];
+                    [[expectFutureValue(theValue(command.didCancelCount)) shouldEventually] equal:theValue(0)];
                 });
 
             });
@@ -330,19 +291,19 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
             context(@"when instantiated with a cancelling command and cancelOnCancel is set to NO", ^{
 
                 __block ConcurrentCommand *command;
-                __block AsyncCommandDelegate *delegate;
-                __block AsyncCommand *command1;
-                __block AsyncCommand *command2;
-                __block AsyncCommand *command3;
+                __block CommandDelegate *delegate;
+                __block Command *command1;
+                __block Command *command2;
+                __block Command *command3;
                 beforeEach(^{
-                    command1 = [[AsyncCommand alloc] init];
-                    command2 = [[AsyncCommand alloc] init];
-                    command3 = [[AsyncCommand alloc] init];
+                    command1 = [[Command alloc] init];
+                    command2 = [[Command alloc] init];
+                    command3 = [[Command alloc] init];
 
                     command2.executeAndCancel = YES;
 
                     command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:NO];
-                    delegate = [[AsyncCommandDelegate alloc] init];
+                    delegate = [[CommandDelegate alloc] init];
                     command.delegate = delegate;
                     [command execute];
                 });
@@ -361,8 +322,8 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                     [[expectFutureValue(theValue(delegate.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
 
-                    [[expectFutureValue(theValue(command.didCompleteExecutionCount)) shouldEventually] equal:theValue(1)];
-                    [[expectFutureValue(theValue(command.didGetCancelledCount)) shouldEventually] equal:theValue(0)];
+                    [[expectFutureValue(theValue(command.didExecuteCount)) shouldEventually] equal:theValue(1)];
+                    [[expectFutureValue(theValue(command.didCancelCount)) shouldEventually] equal:theValue(0)];
                 });
 
             });
@@ -370,19 +331,19 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
             context(@"when instantiated with a cancelling command and cancelOnCancel is set to YES", ^{
 
                 __block ConcurrentCommand *command;
-                __block AsyncCommandDelegate *delegate;
-                __block AsyncCommand *command1;
-                __block AsyncCommand *command2;
-                __block AsyncCommand *command3;
+                __block CommandDelegate *delegate;
+                __block Command *command1;
+                __block Command *command2;
+                __block Command *command3;
                 beforeEach(^{
-                    command1 = [[AsyncCommand alloc] init];
-                    command2 = [[AsyncCommand alloc] init];
-                    command3 = [[AsyncCommand alloc] init];
+                    command1 = [[Command alloc] init];
+                    command2 = [[Command alloc] init];
+                    command3 = [[Command alloc] init];
 
                     command2.executeAndCancel = YES;
 
                     command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:YES];
-                    delegate = [[AsyncCommandDelegate alloc] init];
+                    delegate = [[CommandDelegate alloc] init];
                     command.delegate = delegate;
                     [command execute];
                 });
@@ -401,8 +362,8 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     [[expectFutureValue(theValue(command.isInCancelledState)) shouldEventually] beYes];
                     [[expectFutureValue(theValue(delegate.isInCancelledState)) shouldEventually] beYes];
 
-                    [[expectFutureValue(theValue(command.didCompleteExecutionCount)) shouldEventually] equal:theValue(0)];
-                    [[expectFutureValue(theValue(command.didGetCancelledCount)) shouldEventually] equal:theValue(1)];
+                    [[expectFutureValue(theValue(command.didExecuteCount)) shouldEventually] equal:theValue(0)];
+                    [[expectFutureValue(theValue(command.didCancelCount)) shouldEventually] equal:theValue(1)];
                 });
 
             });
