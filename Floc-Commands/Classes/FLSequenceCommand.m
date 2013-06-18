@@ -60,8 +60,8 @@
 }
 
 - (void)command:(FLCommand *)command didExecuteWithError:(NSError *)error {
-    command.delegate = nil;
     self.currentCommand = nil;
+    command.delegate = nil;
 
     if (self.stopOnError && error) {
         NSLog(@"Command '%@' did execute with an error: %@'\nStopping sequence '%@'",
@@ -73,8 +73,8 @@
 }
 
 - (void)commandCancelled:(FLCommand *)command {
-    command.delegate = nil;
     self.currentCommand = nil;
+    command.delegate = nil;
 
     if (self.cancelOnCancel) {
         NSLog(@"Command '%@' got cancelled.\nCancelling sequence '%@'", command, self);
