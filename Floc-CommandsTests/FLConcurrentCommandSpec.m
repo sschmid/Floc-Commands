@@ -27,7 +27,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     [[command should] beKindOfClass:[ConcurrentCommand class]];
                     [[command should] beKindOfClass:[FLConcurrentCommand class]];
                     [[command should] beKindOfClass:[FLCommand class]];
-                    [[command should] conformsToProtocol:@protocol(FLCommandDelegate)];
+                    [[command should] conformToProtocol:@protocol(FLCommandDelegate)];
                 });
 
                 it(@"is in initial state", ^{

@@ -26,7 +26,7 @@ SPEC_BEGIN(FLSequenceCommandSpec)
                     [[command should] beKindOfClass:[SequenceCommand class]];
                     [[command should] beKindOfClass:[FLSequenceCommand class]];
                     [[command should] beKindOfClass:[FLCommand class]];
-                    [[command should] conformsToProtocol:@protocol(FLCommandDelegate)];
+                    [[command should] conformToProtocol:@protocol(FLCommandDelegate)];
                 });
 
                 it(@"is in initial state", ^{

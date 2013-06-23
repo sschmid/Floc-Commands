@@ -43,6 +43,13 @@ SPEC_BEGIN(FLInterceptionCommandSpec)
                     command = [[InterceptionCommand alloc] initWithTarget:target success:nil error:error];
                 });
 
+                it(@"instantiates FLInterceptionCommand", ^{
+                    [[command should] beKindOfClass:[InterceptionCommand class]];
+                    [[command should] beKindOfClass:[FLInterceptionCommand class]];
+                    [[command should] beKindOfClass:[FLCommand class]];
+                    [[command should] conformToProtocol:@protocol(FLCommandDelegate)];
+                });
+
                 it(@"executes command", ^{
                     [command execute];
                     [[theValue(target.isInExecuteState) should] beYes];
