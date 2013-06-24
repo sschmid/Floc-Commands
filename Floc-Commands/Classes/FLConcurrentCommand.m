@@ -29,7 +29,6 @@
     self = [super init];
     if (self) {
         self.commands = [commands copy];
-        self.executingCommands = [[NSMutableArray alloc] init];
         self.stopOnError = stopOnError;
         self.cancelOnCancel = cancelOnCancel;
     }
@@ -40,14 +39,15 @@
 - (void)execute {
     [super execute];
 
-    for (FLCommand *command in self.commands) {
-        [self.executingCommands addObject:command];
-        command.delegate = self;
-        [command execute];
-    }
-
-    if (self.executingCommands.count == 0)
+    if (self.commands.count == 0) {
         [self didExecute];
+    } else {
+        self.executingCommands = [self.commands mutableCopy];
+        for (FLCommand *command in self.commands) {
+            command.delegate = self;
+            [command execute];
+        }
+    }
 }
 
 - (void)cancel {

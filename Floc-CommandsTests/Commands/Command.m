@@ -36,7 +36,10 @@
 
     [super execute];
 
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:self.didExecuteDelay target:self selector:@selector(didAsyncStuff) userInfo:nil repeats:NO];
+    if (self.didExecuteDelay == 0)
+        [self didAsyncStuff];
+    else
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:self.didExecuteDelay target:self selector:@selector(didAsyncStuff) userInfo:nil repeats:NO];
 }
 
 - (void)didAsyncStuff {
