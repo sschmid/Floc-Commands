@@ -8,6 +8,7 @@
 
 @interface FLInterceptionCommand ()
 @property(nonatomic, readwrite) BOOL cancelOnCancel;
+@property(nonatomic, readwrite) BOOL forwardTargetError;
 @property(nonatomic, strong) FLCommand *targetCommand;
 @property(nonatomic, strong) FLCommand *successCommand;
 @property(nonatomic, strong) FLCommand *errorCommand;
@@ -23,11 +24,11 @@
 }
 
 - (id)initWithTarget:(FLCommand *)targetCommand success:(FLCommand *)successCommand error:(FLCommand *)errorCommand {
-    self = [self initWithTarget:targetCommand success:successCommand error:errorCommand cancelOnCancel:NO];
+    self = [self initWithTarget:targetCommand success:successCommand error:errorCommand cancelOnCancel:NO forwardTargetError:NO];
     return self;
 }
 
-- (id)initWithTarget:(FLCommand *)targetCommand success:(FLCommand *)successCommand error:(FLCommand *)errorCommand cancelOnCancel:(BOOL)cancelOnCancel {
+- (id)initWithTarget:(FLCommand *)targetCommand success:(FLCommand *)successCommand error:(FLCommand *)errorCommand cancelOnCancel:(BOOL)cancelOnCancel forwardTargetError:(BOOL)forwardTargetError {
     self = [super init];
     if (self) {
         if (!targetCommand)
@@ -44,6 +45,7 @@
         self.successCommand = successCommand;
         self.errorCommand = errorCommand;
         self.cancelOnCancel = cancelOnCancel;
+        self.forwardTargetError = forwardTargetError;
     }
 
     return self;

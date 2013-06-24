@@ -128,10 +128,10 @@ SPEC_BEGIN(FLInterceptionCommandSpec)
                     target = [[Command alloc] init];
                     success = [[Command alloc] init];
                     success.executeWithError = YES;
-                    command = [[InterceptionCommand alloc] initWithTarget:target success:success error:nil];
                 });
 
                 it(@"executes command", ^{
+                    command = [[InterceptionCommand alloc] initWithTarget:target success:success error:nil];
                     [command execute];
                     [[theValue(target.isInExecuteState) should] beYes];
                     [[theValue(success.isInInitialState) should] beYes];
@@ -142,7 +142,7 @@ SPEC_BEGIN(FLInterceptionCommandSpec)
                 });
 
                 it(@"forwards target error", ^{
-                    command.forwardTargetError = YES;
+                    command = [[InterceptionCommand alloc] initWithTarget:target success:success error:nil cancelOnCancel:NO forwardTargetError:YES];
                     [command execute];
                     [[expectFutureValue(theValue(target.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                     [[expectFutureValue(theValue(success.isInDidExecuteWithErrorState)) shouldEventually] beYes];
@@ -184,10 +184,10 @@ SPEC_BEGIN(FLInterceptionCommandSpec)
                     target = [[Command alloc] init];
                     target.executeWithError = YES;
                     error = [[Command alloc] init];
-                    command = [[InterceptionCommand alloc] initWithTarget:target success:nil error:error];
                 });
 
                 it(@"executes command", ^{
+                    command = [[InterceptionCommand alloc] initWithTarget:target success:nil error:error];
                     [command execute];
                     [[theValue(target.isInExecuteState) should] beYes];
                     [[theValue(error.isInInitialState) should] beYes];
@@ -200,7 +200,7 @@ SPEC_BEGIN(FLInterceptionCommandSpec)
                 context(@"when forwarding target error", ^{
 
                     it(@"forwards target error", ^{
-                        command.forwardTargetError = YES;
+                        command = [[InterceptionCommand alloc] initWithTarget:target success:nil error:error cancelOnCancel:NO forwardTargetError:YES];
                         [command execute];
                         [[theValue(target.isInExecuteState) should] beYes];
                         [[theValue(error.isInInitialState) should] beYes];
@@ -208,18 +208,6 @@ SPEC_BEGIN(FLInterceptionCommandSpec)
                         [[expectFutureValue(theValue(target.isInDidExecuteWithErrorState)) shouldEventually] beYes];
                         [[expectFutureValue(theValue(error.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                         [[expectFutureValue(theValue(command.isInDidExecuteWithErrorState)) shouldEventually] beYes];
-                    });
-
-                    it(@"resets target error", ^{
-                        command.forwardTargetError = YES;
-                        [command execute];
-                        [[expectFutureValue(theValue(command.isInDidExecuteWithErrorState)) shouldEventually] beYes];
-
-                        command.forwardTargetError = NO;
-                        target.executeWithError = NO;
-                        [command execute];
-                        [[expectFutureValue(theValue(target.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                        [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                     });
 
                 });
@@ -331,7 +319,7 @@ SPEC_BEGIN(FLInterceptionCommandSpec)
                     target.executeAndCancel = YES;
                     success = [[Command alloc] init];
                     error = [[Command alloc] init];
-                    command = [[InterceptionCommand alloc] initWithTarget:target success:success error:error cancelOnCancel:NO];
+                    command = [[InterceptionCommand alloc] initWithTarget:target success:success error:error cancelOnCancel:NO forwardTargetError:NO];
                 });
 
                 it(@"cancels command", ^{
@@ -357,7 +345,7 @@ SPEC_BEGIN(FLInterceptionCommandSpec)
                     target.executeAndCancel = YES;
                     success = [[Command alloc] init];
                     error = [[Command alloc] init];
-                    command = [[InterceptionCommand alloc] initWithTarget:target success:success error:error cancelOnCancel:YES];
+                    command = [[InterceptionCommand alloc] initWithTarget:target success:success error:error cancelOnCancel:YES forwardTargetError:NO];
                 });
 
                 it(@"cancels command", ^{

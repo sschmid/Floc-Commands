@@ -9,8 +9,9 @@
 
 @interface FLInterceptionCommand : FLCommand <FLCommandDelegate>
 @property(nonatomic, readonly) BOOL cancelOnCancel;
-@property(nonatomic) BOOL forwardTargetError;
+@property(nonatomic, readonly) BOOL forwardTargetError;
 
 - (id)initWithTarget:(FLCommand *)targetCommand success:(FLCommand *)successCommand error:(FLCommand *)errorCommand;
-- (id)initWithTarget:(FLCommand *)targetCommand success:(FLCommand *)successCommand error:(FLCommand *)errorCommand cancelOnCancel:(BOOL)cancelOnCancel;
+- (id)initWithTarget:(FLCommand *)targetCommand success:(FLCommand *)successCommand error:(FLCommand *)errorCommand
+      cancelOnCancel:(BOOL)cancelOnCancel forwardTargetError:(BOOL)forwardTargetError;
 @end
