@@ -368,6 +368,56 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
 
             });
 
+            context(@"when multiple commands execute immediately", ^{
+
+                __block ConcurrentCommand *command;
+                __block Command *command1;
+                __block Command *command2;
+                __block Command *command3;
+                beforeEach(^{
+                    command1 = [[Command alloc] init];
+                    command2 = [[Command alloc] init];
+                    command3 = [[Command alloc] init];
+
+                    command1.didExecuteDelay = 0.0;
+                    command2.didExecuteDelay = 0.0;
+                    command3.didExecuteDelay = 0.0;
+
+                    command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:NO];
+                    [command execute];
+                });
+
+                it(@"won't crash", ^{
+                    [command execute];
+                });
+
+            });
+
+            context(@"when multiple commands cancel immediately", ^{
+
+                __block ConcurrentCommand *command;
+                __block Command *command1;
+                __block Command *command2;
+                __block Command *command3;
+                beforeEach(^{
+                    command1 = [[Command alloc] init];
+                    command2 = [[Command alloc] init];
+                    command3 = [[Command alloc] init];
+
+                    command1.didExecuteDelay = 0.0;
+                    command2.didExecuteDelay = 0.0;
+                    command3.didExecuteDelay = 0.0;
+
+                    command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:NO];
+                    [command execute];
+                });
+
+                it(@"won't crash", ^{
+                    [command cancel];
+                });
+
+            });
+
         });
 
 SPEC_END

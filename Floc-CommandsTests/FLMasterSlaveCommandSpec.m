@@ -297,6 +297,48 @@ SPEC_BEGIN(FLMasterSlaveCommandSpec)
 
             });
 
+            context(@"when master and slave commands execute immediately", ^{
+
+                __block Command *master;
+                __block Command *slave;
+                __block MasterSlaveCommand *command;
+                beforeEach(^{
+                    master = [[Command alloc] init];
+                    slave = [[Command alloc] init];
+
+                    master.didExecuteDelay = 0;
+                    slave.didExecuteDelay = 0;
+
+                    command = [[MasterSlaveCommand alloc] initWithMaster:master slave:slave forwardMasterError:YES];
+                });
+
+                it(@"won't crash", ^{
+                    [command execute];
+                });
+
+            });
+
+            context(@"when master and slave commands cancel immediately", ^{
+
+                __block Command *master;
+                __block Command *slave;
+                __block MasterSlaveCommand *command;
+                beforeEach(^{
+                    master = [[Command alloc] init];
+                    slave = [[Command alloc] init];
+
+                    master.didExecuteDelay = 0;
+                    slave.didExecuteDelay = 0;
+
+                    command = [[MasterSlaveCommand alloc] initWithMaster:master slave:slave forwardMasterError:YES];
+                });
+
+                it(@"won't crash", ^{
+                    [command cancel];
+                });
+
+            });
+
         });
 
 SPEC_END

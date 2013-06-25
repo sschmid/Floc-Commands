@@ -44,7 +44,7 @@
 - (void)execute {
     [super execute];
     self.executingCommands = [[NSMutableArray alloc] initWithObjects:self.slaveCommand, self.masterCommand, nil];
-    for (FLCommand *command in self.executingCommands) {
+    for (FLCommand *command in [self.executingCommands copy]) {
         command.delegate = self;
         [command execute];
     }
