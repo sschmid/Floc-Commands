@@ -76,7 +76,7 @@
             self.currentCommand.delegate = self;
             [self.currentCommand execute];
         } else {
-            [self didExecuteWithError:error];
+            [self didExecuteWithError:self.forwardTargetError ? error : nil];
         }
     } else {
         [self didExecuteWithError:self.forwardTargetError ? self.targetError : error];
