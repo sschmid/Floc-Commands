@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D4DF0249D53EE1397085169 /* FLBlockCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF9326E88E54B88CCCC02 /* FLBlockCommandSpec.m */; };
 		8D4DF096C37F5E6F10C6C848 /* SequenceCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFB7E5D2DF57117051F03 /* SequenceCommand.m */; };
 		8D4DF15A3C30A77A619A2AEB /* ConcurrentCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFA002599EC2E7CB95911 /* ConcurrentCommand.m */; };
 		8D4DF20738A1B9E1C49C5B8D /* FlocCommandsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF972C11F868C7A5873CF /* FlocCommandsSpec.m */; };
@@ -21,6 +22,7 @@
 		8D4DFABF45B96DB79E8734D7 /* FLSequenceCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF07129F1616CDFEB38DD /* FLSequenceCommandSpec.m */; };
 		8D4DFBF9D84DFF439FF06128 /* FLMasterSlaveCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFEA9ACAC4EB0054C6086 /* FLMasterSlaveCommandSpec.m */; };
 		8D4DFBFB78C41429D07A6D9A /* CommandDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF66B63F99143A6768263 /* CommandDelegate.m */; };
+		8D4DFC4740BBBEFCFEA37F54 /* FLBlockCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFDA442DFAB3A5D2EB04B /* FLBlockCommand.m */; };
 		8D4DFCF657CA43BB99203AB6 /* FLConcurrentCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF045142D78327F66987A /* FLConcurrentCommand.m */; };
 		8D4DFD915A21496D623D6330 /* FLCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF3A2130E911C635E0F51 /* FLCommandSpec.m */; };
 		8D4DFF182DB6FD9866171383 /* FLSequenceCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF46AFE6928753721B18F /* FLSequenceCommand.m */; };
@@ -65,6 +67,7 @@
 		8D4DF66B63F99143A6768263 /* CommandDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandDelegate.m; sourceTree = "<group>"; };
 		8D4DF6C41A59C8CE6DC20D92 /* FLMasterSlaveCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLMasterSlaveCommand.h; sourceTree = "<group>"; };
 		8D4DF87A56E27575A4F4D398 /* FLMasterSlaveCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLMasterSlaveCommand.m; sourceTree = "<group>"; };
+		8D4DF9326E88E54B88CCCC02 /* FLBlockCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLBlockCommandSpec.m; sourceTree = "<group>"; };
 		8D4DF945BABE9236D3292936 /* Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Command.m; sourceTree = "<group>"; };
 		8D4DF972C11F868C7A5873CF /* FlocCommandsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlocCommandsSpec.m; sourceTree = "<group>"; };
 		8D4DFA002599EC2E7CB95911 /* ConcurrentCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConcurrentCommand.m; sourceTree = "<group>"; };
@@ -74,11 +77,13 @@
 		8D4DFB7E5D2DF57117051F03 /* SequenceCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SequenceCommand.m; sourceTree = "<group>"; };
 		8D4DFBB2BE20CDDE5D440B9E /* InterceptionCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterceptionCommand.h; sourceTree = "<group>"; };
 		8D4DFCA417E5A16F802098AB /* CommandDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandDelegate.h; sourceTree = "<group>"; };
+		8D4DFDA442DFAB3A5D2EB04B /* FLBlockCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLBlockCommand.m; sourceTree = "<group>"; };
 		8D4DFDE08EB7889C71DD38CE /* FLInterceptionCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLInterceptionCommandSpec.m; sourceTree = "<group>"; };
 		8D4DFDF26811B77F7766591D /* InterceptionCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterceptionCommand.m; sourceTree = "<group>"; };
 		8D4DFEA9ACAC4EB0054C6086 /* FLMasterSlaveCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLMasterSlaveCommandSpec.m; sourceTree = "<group>"; };
 		8D4DFEAC28868581C5A36273 /* FLInterceptionCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLInterceptionCommand.h; sourceTree = "<group>"; };
 		8D4DFEB8B6B4F6D3A5E4DD92 /* FLInterceptionCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLInterceptionCommand.m; sourceTree = "<group>"; };
+		8D4DFF21A6F7FD7B709CFB1F /* FLBlockCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLBlockCommand.h; sourceTree = "<group>"; };
 		8D4DFFF330F7105F1F377DB2 /* SequenceCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequenceCommand.h; sourceTree = "<group>"; };
 		CB1B4BF71762413D00BACBB8 /* Floc-Commands.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Floc-Commands.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1B4BFA1762413D00BACBB8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -164,6 +169,8 @@
 				8D4DFEAC28868581C5A36273 /* FLInterceptionCommand.h */,
 				8D4DF87A56E27575A4F4D398 /* FLMasterSlaveCommand.m */,
 				8D4DF6C41A59C8CE6DC20D92 /* FLMasterSlaveCommand.h */,
+				8D4DFDA442DFAB3A5D2EB04B /* FLBlockCommand.m */,
+				8D4DFF21A6F7FD7B709CFB1F /* FLBlockCommand.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -237,6 +244,7 @@
 				8D4DFAB28509E770FD37AA95 /* FLConcurrentCommandSpec.m */,
 				8D4DFDE08EB7889C71DD38CE /* FLInterceptionCommandSpec.m */,
 				8D4DFEA9ACAC4EB0054C6086 /* FLMasterSlaveCommandSpec.m */,
+				8D4DF9326E88E54B88CCCC02 /* FLBlockCommandSpec.m */,
 			);
 			path = "Floc-CommandsTests";
 			sourceTree = "<group>";
@@ -396,6 +404,7 @@
 				8D4DFCF657CA43BB99203AB6 /* FLConcurrentCommand.m in Sources */,
 				8D4DF64F30ECC4FC155B091F /* FLInterceptionCommand.m in Sources */,
 				8D4DF6A21888321A29B1A3B3 /* FLMasterSlaveCommand.m in Sources */,
+				8D4DFC4740BBBEFCFEA37F54 /* FLBlockCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +424,7 @@
 				8D4DF303997FF7CA27F77099 /* FLInterceptionCommandSpec.m in Sources */,
 				8D4DFBF9D84DFF439FF06128 /* FLMasterSlaveCommandSpec.m in Sources */,
 				8D4DF38579C2A8665F0CA7AE /* MasterSlaveCommand.m in Sources */,
+				8D4DF0249D53EE1397085169 /* FLBlockCommandSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
