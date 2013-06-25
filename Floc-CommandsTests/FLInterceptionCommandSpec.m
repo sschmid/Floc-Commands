@@ -160,17 +160,55 @@ SPEC_BEGIN(FLInterceptionCommandSpec)
                     target = [[Command alloc] init];
                     target.executeWithError = YES;
                     success = [[Command alloc] init];
-                    command = [[InterceptionCommand alloc] initWithTarget:target success:success error:nil];
                 });
 
-                it(@"executes command", ^{
-                    [command execute];
-                    [[theValue(target.isInExecuteState) should] beYes];
-                    [[theValue(success.isInInitialState) should] beYes];
-                    [[theValue(command.isInExecuteState) should] beYes];
-                    [[expectFutureValue(theValue(target.isInDidExecuteWithErrorState)) shouldEventually] beYes];
-                    [[expectFutureValue(theValue(success.isInInitialState)) shouldEventually] beYes];
-                    [[expectFutureValue(theValue(command.isInDidExecuteWithErrorState)) shouldEventually] beYes];
+                context(@"when forwardTargetError is set to NO", ^{
+
+                    beforeEach(^{
+                        command = [[InterceptionCommand alloc] initWithTarget:target success:success error:nil cancelOnCancel:NO forwardTargetError:NO];
+                    });
+
+                    it(@"executes command", ^{
+                        [command execute];
+                        [[theValue(target.isInExecuteState) should] beYes];
+                        [[theValue(success.isInInitialState) should] beYes];
+                        [[theValue(command.isInExecuteState) should] beYes];
+                        [[expectFutureValue(theValue(target.isInDidExecuteWithErrorState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(success.isInInitialState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                    });
+
+                });
+
+            });
+
+            context(@"when initialized with failing target and no error command", ^{
+
+                __block InterceptionCommand *command;
+                __block Command *target;
+                __block Command *success;
+                beforeEach(^{
+                    target = [[Command alloc] init];
+                    target.executeWithError = YES;
+                    success = [[Command alloc] init];
+                });
+
+                context(@"when forwardTargetError is set to YES", ^{
+
+                    beforeEach(^{
+                        command = [[InterceptionCommand alloc] initWithTarget:target success:success error:nil cancelOnCancel:NO forwardTargetError:YES];
+                    });
+
+                    it(@"executes command", ^{
+                        [command execute];
+                        [[theValue(target.isInExecuteState) should] beYes];
+                        [[theValue(success.isInInitialState) should] beYes];
+                        [[theValue(command.isInExecuteState) should] beYes];
+                        [[expectFutureValue(theValue(target.isInDidExecuteWithErrorState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(success.isInInitialState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(command.isInDidExecuteWithErrorState)) shouldEventually] beYes];
+                    });
+
                 });
 
             });

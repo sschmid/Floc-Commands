@@ -39,6 +39,10 @@
 		CB1B4C1A1762413D00BACBB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFA1762413D00BACBB8 /* UIKit.framework */; };
 		CB1B4C1B1762413D00BACBB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFC1762413D00BACBB8 /* Foundation.framework */; };
 		CB1B4C231762413D00BACBB8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB1B4C211762413D00BACBB8 /* InfoPlist.strings */; };
+		CB89DAD7177A1A6800C2A542 /* Floc-Commands-114.png in Resources */ = {isa = PBXBuildFile; fileRef = CB89DAD6177A1A6800C2A542 /* Floc-Commands-114.png */; };
+		CB89DAD9177A1A6D00C2A542 /* Floc-Commands-57.png in Resources */ = {isa = PBXBuildFile; fileRef = CB89DAD8177A1A6D00C2A542 /* Floc-Commands-57.png */; };
+		CB89DADB177A1A7200C2A542 /* Floc-Commands-144.png in Resources */ = {isa = PBXBuildFile; fileRef = CB89DADA177A1A7200C2A542 /* Floc-Commands-144.png */; };
+		CB89DADD177A1A7500C2A542 /* Floc-Commands-72.png in Resources */ = {isa = PBXBuildFile; fileRef = CB89DADC177A1A7500C2A542 /* Floc-Commands-72.png */; };
 		DD8C8488CF234212A0766D48 /* libPods-Floc-CommandsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0666D5A0D91246CD9AAF468C /* libPods-Floc-CommandsTests.a */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +106,10 @@
 		CB1B4C181762413D00BACBB8 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		CB1B4C201762413D00BACBB8 /* Floc-CommandsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Floc-CommandsTests-Info.plist"; sourceTree = "<group>"; };
 		CB1B4C221762413D00BACBB8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CB89DAD6177A1A6800C2A542 /* Floc-Commands-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Floc-Commands-114.png"; sourceTree = "<group>"; };
+		CB89DAD8177A1A6D00C2A542 /* Floc-Commands-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Floc-Commands-57.png"; sourceTree = "<group>"; };
+		CB89DADA177A1A7200C2A542 /* Floc-Commands-144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Floc-Commands-144.png"; sourceTree = "<group>"; };
+		CB89DADC177A1A7500C2A542 /* Floc-Commands-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Floc-Commands-72.png"; sourceTree = "<group>"; };
 		D8C60B7B328E4429B7854C8A /* Pods-Floc-CommandsTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Floc-CommandsTests.xcconfig"; path = "Pods/Pods-Floc-CommandsTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -178,6 +186,10 @@
 		CB1B4BEE1762413D00BACBB8 = {
 			isa = PBXGroup;
 			children = (
+				CB89DADC177A1A7500C2A542 /* Floc-Commands-72.png */,
+				CB89DADA177A1A7200C2A542 /* Floc-Commands-144.png */,
+				CB89DAD8177A1A6D00C2A542 /* Floc-Commands-57.png */,
+				CB89DAD6177A1A6800C2A542 /* Floc-Commands-114.png */,
 				CB1B4C001762413D00BACBB8 /* Floc-Commands */,
 				CB1B4C1E1762413D00BACBB8 /* Floc-CommandsTests */,
 				CB1B4BF91762413D00BACBB8 /* Frameworks */,
@@ -335,6 +347,10 @@
 				CB1B4C0D1762413D00BACBB8 /* Default.png in Resources */,
 				CB1B4C0F1762413D00BACBB8 /* Default@2x.png in Resources */,
 				CB1B4C111762413D00BACBB8 /* Default-568h@2x.png in Resources */,
+				CB89DAD7177A1A6800C2A542 /* Floc-Commands-114.png in Resources */,
+				CB89DAD9177A1A6D00C2A542 /* Floc-Commands-57.png in Resources */,
+				CB89DADB177A1A7200C2A542 /* Floc-Commands-144.png in Resources */,
+				CB89DADD177A1A7500C2A542 /* Floc-Commands-72.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
