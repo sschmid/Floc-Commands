@@ -12,14 +12,14 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor blackColor];
 
-    [self showIcon];
+    [self showIcon:@"Floc-Commands-144.png"];
 
     [self.window makeKeyAndVisible];
     return YES;
 }
 
-- (void)showIcon {
-    UIImage *image = [UIImage imageNamed:@"Floc-Commands-144.png"];
+- (void)showIcon:(NSString *)filePath {
+    UIImage *image = [UIImage imageNamed:filePath];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.center = self.window.center;
     [self.window addSubview:imageView];
