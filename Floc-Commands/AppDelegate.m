@@ -5,6 +5,11 @@
 //
 
 #import "AppDelegate.h"
+#import "BatmanTheme.h"
+
+@interface AppDelegate ()
+@property(nonatomic, strong) BatmanTheme *batmanTheme;
+@end
 
 @implementation AppDelegate
 
@@ -13,6 +18,8 @@
     self.window.backgroundColor = [UIColor blackColor];
 
     [self showIcon:@"Floc-Commands-144.png"];
+
+    self.batmanTheme = [[BatmanTheme alloc] init];
 
     [self.window makeKeyAndVisible];
     return YES;
