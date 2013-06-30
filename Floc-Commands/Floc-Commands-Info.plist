@@ -14,10 +14,10 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>Floc-Commands-114.png</string>
-				<string>Floc-Commands-57.png</string>
-				<string>Floc-Commands-144.png</string>
-				<string>Floc-Commands-72.png</string>
+				<string>Floc-Commands-Icon-114.png</string>
+				<string>Floc-Commands-Icon-57.png</string>
+				<string>Floc-Commands-Icon-144.png</string>
+				<string>Floc-Commands-Icon-72.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>
