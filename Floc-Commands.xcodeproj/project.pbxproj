@@ -16,13 +16,16 @@
 		8D4DF303997FF7CA27F77099 /* FLInterceptionCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFDE08EB7889C71DD38CE /* FLInterceptionCommandSpec.m */; };
 		8D4DF38579C2A8665F0CA7AE /* MasterSlaveCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF030D88461DE7C8B3610 /* MasterSlaveCommand.m */; };
 		8D4DF3BEA028B0BF299CF6F9 /* InterceptionCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFDF26811B77F7766591D /* InterceptionCommand.m */; };
+		8D4DF4D188ED1F325401FDEF /* RepeatCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFAC5FED1CDA20F28CD6B /* RepeatCommand.m */; };
 		8D4DF585E907EDF1EC464BFC /* FLRetryCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFB9F82E25B98FC17C18C /* FLRetryCommand.m */; };
 		8D4DF64F30ECC4FC155B091F /* FLInterceptionCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFEB8B6B4F6D3A5E4DD92 /* FLInterceptionCommand.m */; };
 		8D4DF654FD09DB2D628BC219 /* Floc-Commands-Icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4DFD1C34D379A89C5BDCB8 /* Floc-Commands-Icon-144.png */; };
 		8D4DF6811B00EC83903D16A5 /* Floc-Commands-144.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4DF58A0B362266A1E9859C /* Floc-Commands-144.png */; };
 		8D4DF6A21888321A29B1A3B3 /* FLMasterSlaveCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF87A56E27575A4F4D398 /* FLMasterSlaveCommand.m */; };
 		8D4DF6D1E0E3670B7088A308 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4DF496D7E0334AE0AD97A1 /* Default.png */; };
+		8D4DF6D4B8129F3AD4308484 /* FLRepeatCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF7F154239F51F0394880 /* FLRepeatCommandSpec.m */; };
 		8D4DF7299F14B6F83281E420 /* FLCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF1A88582813BF5A8846A /* FLCommand.m */; };
+		8D4DF77BFFD103074F0CDB89 /* FLRepeatCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF351FA9F8CBC3A3647A9 /* FLRepeatCommand.m */; };
 		8D4DF7A0215832EB0168B668 /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF945BABE9236D3292936 /* Command.m */; };
 		8D4DF8AD9B412608C6D3745D /* FLConcurrentCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFAB28509E770FD37AA95 /* FLConcurrentCommandSpec.m */; };
 		8D4DF95EC570B1A767B664B8 /* Floc-Commands-Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4DF0BA1E4496A6FE9DC5BB /* Floc-Commands-Icon-72.png */; };
@@ -73,8 +76,10 @@
 		8D4DF1F07A2B00B278408E14 /* FLRetryCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLRetryCommandSpec.m; sourceTree = "<group>"; };
 		8D4DF288FCD394867BEBB483 /* RetryCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetryCommand.m; sourceTree = "<group>"; };
 		8D4DF2F2759E182F09F2A04E /* FLSequenceCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSequenceCommand.h; sourceTree = "<group>"; };
+		8D4DF351FA9F8CBC3A3647A9 /* FLRepeatCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLRepeatCommand.m; sourceTree = "<group>"; };
 		8D4DF39380E078E82802AF42 /* RetryCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetryCommand.h; sourceTree = "<group>"; };
 		8D4DF3A2130E911C635E0F51 /* FLCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLCommandSpec.m; sourceTree = "<group>"; };
+		8D4DF3BF82D242D6AE375E11 /* FLRepeatCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLRepeatCommand.h; sourceTree = "<group>"; };
 		8D4DF412E5125167595A1FA0 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		8D4DF46AFE6928753721B18F /* FLSequenceCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSequenceCommand.m; sourceTree = "<group>"; };
 		8D4DF496D7E0334AE0AD97A1 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -84,6 +89,7 @@
 		8D4DF6C41A59C8CE6DC20D92 /* FLMasterSlaveCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLMasterSlaveCommand.h; sourceTree = "<group>"; };
 		8D4DF729AD740F6567D48911 /* FLRetryCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLRetryCommand.h; sourceTree = "<group>"; };
 		8D4DF77A5BA42501740B790B /* Floc-Commands-Icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Floc-Commands-Icon-57.png"; sourceTree = "<group>"; };
+		8D4DF7F154239F51F0394880 /* FLRepeatCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLRepeatCommandSpec.m; sourceTree = "<group>"; };
 		8D4DF836DF27BE629C82AECE /* Floc-Commands-Icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Floc-Commands-Icon-114.png"; sourceTree = "<group>"; };
 		8D4DF87A56E27575A4F4D398 /* FLMasterSlaveCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLMasterSlaveCommand.m; sourceTree = "<group>"; };
 		8D4DF9326E88E54B88CCCC02 /* FLBlockCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLBlockCommandSpec.m; sourceTree = "<group>"; };
@@ -92,6 +98,8 @@
 		8D4DFA002599EC2E7CB95911 /* ConcurrentCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConcurrentCommand.m; sourceTree = "<group>"; };
 		8D4DFA090FEE0362558DC034 /* FLCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLCommand.h; sourceTree = "<group>"; };
 		8D4DFAB28509E770FD37AA95 /* FLConcurrentCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLConcurrentCommandSpec.m; sourceTree = "<group>"; };
+		8D4DFAB93A6471070EC02509 /* RepeatCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepeatCommand.h; sourceTree = "<group>"; };
+		8D4DFAC5FED1CDA20F28CD6B /* RepeatCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepeatCommand.m; sourceTree = "<group>"; };
 		8D4DFADC93AE0260CE667ACA /* MasterSlaveCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterSlaveCommand.h; sourceTree = "<group>"; };
 		8D4DFB7E5D2DF57117051F03 /* SequenceCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SequenceCommand.m; sourceTree = "<group>"; };
 		8D4DFB9F82E25B98FC17C18C /* FLRetryCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLRetryCommand.m; sourceTree = "<group>"; };
@@ -163,6 +171,8 @@
 				8D4DFADC93AE0260CE667ACA /* MasterSlaveCommand.h */,
 				8D4DF39380E078E82802AF42 /* RetryCommand.h */,
 				8D4DF288FCD394867BEBB483 /* RetryCommand.m */,
+				8D4DFAC5FED1CDA20F28CD6B /* RepeatCommand.m */,
+				8D4DFAB93A6471070EC02509 /* RepeatCommand.h */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -208,6 +218,8 @@
 				8D4DFF21A6F7FD7B709CFB1F /* FLBlockCommand.h */,
 				8D4DFB9F82E25B98FC17C18C /* FLRetryCommand.m */,
 				8D4DF729AD740F6567D48911 /* FLRetryCommand.h */,
+				8D4DF351FA9F8CBC3A3647A9 /* FLRepeatCommand.m */,
+				8D4DF3BF82D242D6AE375E11 /* FLRepeatCommand.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -281,6 +293,7 @@
 				8D4DFEA9ACAC4EB0054C6086 /* FLMasterSlaveCommandSpec.m */,
 				8D4DF9326E88E54B88CCCC02 /* FLBlockCommandSpec.m */,
 				8D4DF1F07A2B00B278408E14 /* FLRetryCommandSpec.m */,
+				8D4DF7F154239F51F0394880 /* FLRepeatCommandSpec.m */,
 			);
 			path = "Floc-CommandsTests";
 			sourceTree = "<group>";
@@ -447,6 +460,7 @@
 				8D4DF6A21888321A29B1A3B3 /* FLMasterSlaveCommand.m in Sources */,
 				8D4DFC4740BBBEFCFEA37F54 /* FLBlockCommand.m in Sources */,
 				8D4DF585E907EDF1EC464BFC /* FLRetryCommand.m in Sources */,
+				8D4DF77BFFD103074F0CDB89 /* FLRepeatCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,6 +483,8 @@
 				8D4DF0249D53EE1397085169 /* FLBlockCommandSpec.m in Sources */,
 				8D4DFB316D0476D9C12B888B /* FLRetryCommandSpec.m in Sources */,
 				8D4DF27C465AC636C32A9A25 /* RetryCommand.m in Sources */,
+				8D4DF6D4B8129F3AD4308484 /* FLRepeatCommandSpec.m in Sources */,
+				8D4DF4D188ED1F325401FDEF /* RepeatCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
