@@ -5,18 +5,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FLCommand.h"
+#import "FLInterceptionCommand.h"
+#import "FLRetryCommand.h"
 
-@interface Command : FLCommand
-@property (nonatomic) float didExecuteDelay;
-@property (nonatomic) BOOL executeWithError;
-@property (nonatomic) BOOL executeAndCancel;
-@property (nonatomic) BOOL resetExecuteWithErrorAfterDidExecute;
-;
-
+@interface RetryCommand : FLRetryCommand
 @property(nonatomic) int willExecuteCount;
 @property(nonatomic) int didExecuteCount;
 @property(nonatomic) int didCancelCount;
+@property(nonatomic) float cancelDelay;
 
 - (BOOL)isInInitialState;
 - (BOOL)isInExecuteState;

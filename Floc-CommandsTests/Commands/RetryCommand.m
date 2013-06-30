@@ -4,64 +4,39 @@
 // contact@sschmid.com
 //
 
-#import "Command.h"
+#import "RetryCommand.h"
 
-@interface Command ()
+@interface RetryCommand ()
 @property(nonatomic) BOOL didStartExecution;
 @property(nonatomic) BOOL didCompleteExecution;
 @property(nonatomic) BOOL didGetCancelled;
 @property(nonatomic) NSError *error;
-//
 @property(nonatomic, strong) NSTimer *timer;
 @end
 
-@implementation Command
-
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.didExecuteDelay = 1.0/60;
-    }
-
-    return self;
-}
+@implementation RetryCommand
 
 - (void)execute {
-    self.willExecuteCount++;
+    self.willExecuteCount ++;
 
     self.didStartExecution = YES;
     self.didCompleteExecution = NO;
     self.didGetCancelled = NO;
     self.error = nil;
 
+    if (self.cancelDelay != 0)
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:self.cancelDelay target:self selector:@selector(cancel) userInfo:nil repeats:NO];
+
     [super execute];
-
-    if (self.didExecuteDelay == 0)
-        [self didAsyncStuff];
-    else
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:self.didExecuteDelay target:self selector:@selector(didAsyncStuff) userInfo:nil repeats:NO];
-}
-
-- (void)didAsyncStuff {
-    if (self.executeAndCancel)
-        [self cancel];
-    else if (self.executeWithError)
-        [self didExecuteWithError];
-    else
-        [self didExecute];
 }
 
 - (void)cancel {
     self.didCancelCount++;
     self.didGetCancelled = YES;
-    [self.timer invalidate];
     [super cancel];
 }
 
 - (void)didExecuteWithError:(NSError *)error {
-    if (self.resetExecuteWithErrorAfterDidExecute)
-        self.executeWithError = NO;
-
     self.didExecuteCount++;
     self.didCompleteExecution = YES;
     self.error = error;
