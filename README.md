@@ -2,19 +2,27 @@
 ![Floc Commands Logo](http://sschmid.com/Dev/iOS/Libs/Floc-Commands/Floc-Commands-128.png)
 
 ## Description
-Floc Commands is a neat collection of easy-to-use commands for Objective-C. A command usually contains a small part of synchronous or asynchronous logic and can be chained or nested as much as you like. Floc Commands comes with a bunch of handy commands such as:
+Floc Commands is a neat collection of easy-to-use commands for Objective-C.
+A command usually contains a small part of synchronous or asynchronous logic and can be chained or nested
+as much as you like. Floc Commands comes with a bunch of handy commands such as:
 
 * Sequence Command (executes commands one after another)
 * Concurrent Command (executes commands all at once)
 * Interception Command (executes commands depending on the target command's execution result)
 * Block Command (executes a block)
 * Master Slave Command (cancels the slave command as soon the master command did execute)
-* Repeat Command (executes a command x times)
-* Retry Command (retries to execute a command x times, if an error occoured)
+* Repeat Command (executes a command n times)
+* Retry Command (retries to execute a command n times, if an error occoured)
 
-All commands are sublcasses of `FLCommand`, which is asynchronous by nature. When a command finishes execution, it must always call `didExecuteWithError:`. If it executed successfully without any errors, you pass nil as an argument or you can use `didExecute` for convenience. Set objects as a delegate of a `FLCommand` to respond to `commandWillExecute:`, `command:didExecuteWithError:` or `commandCancelled:`.
+All commands are sublcasses of `FLCommand`, which is designed to be used both synchronously or asynchronously.
 
 ## How to use Floc Commands
+To get started, create a subclass of `FLCommand` and override `execute`. When a command finishes execution,
+it must always call `didExecuteWithError:`. If it executed successfully without any errors, you pass nil as an argument
+or you can use `didExecute` for convenience. Assign a delegate to respond to `commandWillExecute:`,
+`command:didExecuteWithError:` or `commandCancelled:`.
+
+## Examples
 Synchronous FLCommand
 
 ```objective-c
@@ -39,6 +47,7 @@ Asynchronous FLCommand
 - (void)execute {
     [super execute];
 
+      // This may take a few seconds...
       [self.server sendData:data onComplete:^(NSError *error) {
           [self didExecuteWithError:error];
       }];
@@ -47,19 +56,28 @@ Asynchronous FLCommand
 @end
 ```
 
-FLSequenceCommand
+FLSequenceCommand will execute commands one at a time.
+Available options:
+* `stopOnError` will stop, when an error occoured
+* `cancelOnCancel` will cancel, when a sub command got cancelled
 
 ```objective-c
 [[FLSequenceCommand alloc] initWithCommands:@[c1, c2, c3, c4]];
 ```
 
-FLConcurrentCommand
+FLConcurrentCommand.
+Available options:
+* `stopOnError` will stop, when an error occoured
+* `cancelOnCancel` will cancel, when a sub command got cancelled
 
 ```objective-c
 [[FLConcurrentCommand alloc] initWithCommands:@[c1, c2, c3, c4]];
 ```
 
-FLInterceptionCommand
+FLInterceptionCommand.
+Available options:
+* `cancelOnCancel` will cancel, when a sub command got cancelled
+* `forwardTargetError` will forward the target error via `command:didExecuteWithError:`
 
 ```objective-c
 self.postCommand = [[FLInterceptionCommand alloc] initWithTarget:sendDataCommand
@@ -86,6 +104,8 @@ FLBlockCommand *delayCommand = [[FLBlockCommand alloc] initWithBlock:^(FLBlockCo
 ```
 
 FLMasterSlaveCommand. Executes both commands at the same time and will cancel slave, as soon as the master command did execute.
+Available options:
+* `forwardMasterError` will forward the matser error via `command:didExecuteWithError:`
 
 ```objective-c
 [[FLMasterSlaveCommand alloc] initWithMaster:doHeavyTaskCommand slave:playJeopardyMusicCommand];
@@ -119,5 +139,3 @@ $ pod install
 Open the created Xcode Workspace file.
 
 [CocoaPods]: http://cocoapods.org
-[${DEP_1}]: http://sschmid.com
-[${TOOL_1}]: http://sschmid.com
