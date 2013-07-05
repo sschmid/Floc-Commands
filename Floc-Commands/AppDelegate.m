@@ -16,8 +16,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor blackColor];
-
-    [self showIcon:@"Floc-Commands-144.png"];
+    [self showIcon];
 
     self.batmanTheme = [[BatmanTheme alloc] init];
 
@@ -25,8 +24,8 @@
     return YES;
 }
 
-- (void)showIcon:(NSString *)filePath {
-    UIImage *image = [UIImage imageNamed:filePath];
+- (void)showIcon {
+    UIImage *image = [UIImage imageNamed:@"Floc-Commands-Logo.png"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.center = self.window.center;
     [self.window addSubview:imageView];
