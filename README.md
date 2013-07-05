@@ -31,7 +31,6 @@ the command alive.
 ```objective-c
 self.command = [[RequesteDataCommand alloc] init];
 [command execute];
-
 ```
 
 ## Examples
