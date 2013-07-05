@@ -1,5 +1,6 @@
 # Floc Commands
 ![Floc Commands Logo](http://sschmid.com/Dev/iOS/Libs/Floc-Commands/Floc-Commands-128.png)
+[![Build Status](https://travis-ci.org/sschmid/Floc-Commands.png?branch=master)](https://travis-ci.org/sschmid/Floc-Commands)
 
 ## Description
 Floc Commands is a neat collection of easy-to-use commands for Objective-C.
