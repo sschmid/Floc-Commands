@@ -22,6 +22,18 @@ it must always call `didExecuteWithError:`. If it executed successfully without 
 or you can use `didExecute` for convenience. Assign a delegate to respond to `commandWillExecute:`,
 `command:didExecuteWithError:` or `commandCancelled:`.
 
+## Potential pitfalls
+When working with asynchronous commands, you should keep a strong pointer to it, because otherwise it may be
+deallocated before it finishes.
+
+RequestDataCommand might take several seconds to complete, so it's a good idea to assign in to a property to keep
+the command alive.
+```objective-c
+self.command = [[RequesteDataCommand alloc] init];
+[command execute];
+
+```
+
 ## Examples
 Synchronous FLCommand
 
@@ -121,12 +133,6 @@ Install [CocoaPods] and add the Floc Commands reference to your Podfile
 platform :ios, '5.0'
   pod 'Floc-Commands'
 end
-```
-
-#### Add this remote
-
-```
-$ pod repo add sschmid-cocoapods-specs https://github.com/sschmid/cocoapods-specs
 ```
 
 #### Install Floc Commands
