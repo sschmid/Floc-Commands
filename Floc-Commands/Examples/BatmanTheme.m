@@ -8,9 +8,10 @@
 #import "FLBlockCommand.h"
 #import "FLRepeatCommand.h"
 #import "FLSequenceCommand.h"
+#import "FLCommandFlow.h"
 
 @interface BatmanTheme ()
-@property(nonatomic, strong) FLSequenceCommand *theme;
+@property(nonatomic, strong) FLCommand *theme;
 @end
 
 @implementation BatmanTheme
@@ -19,24 +20,41 @@
     self = [super init];
     if (self) {
 
-        FLBlockCommand *na = [[FLBlockCommand alloc] initWithBlock:^(FLBlockCommand *command) {
-            NSLog(@"na");
-            [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.2];
-        }];
+        //[self theLongWay];
+        [self theFLWay];
 
-        FLBlockCommand *batman = [[FLBlockCommand alloc] initWithBlock:^(FLBlockCommand *command) {
-            NSLog(@"Batman!");
-            [command didExecute];
-        }];
-
-        FLRepeatCommand *nanana = [[FLRepeatCommand alloc] initWithCommand:na repeat:16];
-
-        self.theme = [[FLSequenceCommand alloc] initWithCommands:@[nanana, batman]];
-        [self.theme execute];
     }
 
     return self;
 }
 
+- (void)theLongWay {
+    FLBlockCommand *na = [[FLBlockCommand alloc] initWithBlock:^(FLBlockCommand *command) {
+        NSLog(@"na");
+        [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.2];
+    }];
+
+    FLBlockCommand *batman = [[FLBlockCommand alloc] initWithBlock:^(FLBlockCommand *command) {
+        NSLog(@"Batman!");
+        [command didExecute];
+    }];
+
+    FLRepeatCommand *nanana = [[FLRepeatCommand alloc] initWithCommand:na repeat:16];
+
+    self.theme = [[FLSequenceCommand alloc] initWithCommands:@[nanana, batman]];
+    [self.theme execute];
+}
+
+- (void)theFLWay {
+    self.theme = FLCFlow.flcmd(^(FLBlockCommand *command) {
+        NSLog(@"na");
+        [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.2];
+    }).repeat(16).flcmd(^(FLBlockCommand *command) {
+        NSLog(@"Batman!");
+        [command didExecute];
+    });
+
+    [self.theme execute];
+}
 
 @end

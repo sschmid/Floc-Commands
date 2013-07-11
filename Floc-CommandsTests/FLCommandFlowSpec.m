@@ -15,7 +15,7 @@ SPEC_BEGIN(FLCommandFlowSpec)
             __block FLCommandFlow *flow;
             __block CommandDelegate *delegate;
             beforeEach(^{
-                flow = [[FLCommandFlow alloc] init];
+                flow = FLCFlow;
                 delegate = [[CommandDelegate alloc] init];
                 flow.delegate = delegate;
             });
@@ -133,6 +133,50 @@ SPEC_BEGIN(FLCommandFlowSpec)
                 [[expectFutureValue(theValue(cmd3Started)) shouldEventually] beYes];
                 [[expectFutureValue(theValue(cmd4Started)) shouldEventually] beYes];
                 [[expectFutureValue(theValue(delegate.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+            });
+
+            it(@"retries commands when they fail", ^{
+                __block int executeCount = 0;
+
+                [flow.flcmd(^(FLBlockCommand *command) {
+                    executeCount++;
+                    [command performSelector:@selector(didExecuteWithError) withObject:nil afterDelay:0.1];
+                }).retry(3) execute];
+
+                [[theValue(executeCount) should] equal:theValue(1)];
+                [[expectFutureValue(theValue(executeCount)) shouldEventually] equal:theValue(3)];
+            });
+
+            it(@"does not retry commands when they do not fail", ^{
+                __block int executeCount = 0;
+
+                [flow.flcmd(^(FLBlockCommand *command) {
+                    executeCount++;
+                    [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.1];
+                }).retry(3) execute];
+
+                [[theValue(executeCount) should] equal:theValue(1)];
+                [[expectFutureValue(theValue(executeCount)) shouldEventually] equal:theValue(1)];
+            });
+
+            it(@"does not retry when no commands", ^{
+                [flow.retry(3) execute];
+            });
+
+            it(@"repeats commands", ^{
+                __block int executeCount = 0;
+
+                [flow.flcmd(^(FLBlockCommand *command) {
+                    executeCount++;
+                    [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.1];
+                }).repeat(3) execute];
+
+                [[theValue(executeCount) should] equal:theValue(1)];
+                [[expectFutureValue(theValue(executeCount)) shouldEventually] equal:theValue(3)];
+            });
+
+            it(@"does not repeat when no commands", ^{
+                [flow.repeat(3) execute];
             });
 
         });
