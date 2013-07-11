@@ -4,16 +4,16 @@
 // contact@sschmid.com
 //
 
-#import "FLConcurrentCommand.h"
+#import "FLParallelCommand.h"
 
-@interface FLConcurrentCommand ()
+@interface FLParallelCommand ()
 @property(nonatomic, readwrite) BOOL stopOnError;
 @property(nonatomic, readwrite) BOOL cancelOnCancel;
 @property(nonatomic, strong, readwrite) NSArray *commands;
 @property(nonatomic, strong) NSMutableArray *executingCommands;
 @end
 
-@implementation FLConcurrentCommand
+@implementation FLParallelCommand
 
 - (id)init {
     self = [self initWithCommands:nil];

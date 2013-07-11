@@ -5,27 +5,27 @@
 //
 
 #import "Kiwi.h"
-#import "ConcurrentCommand.h"
+#import "ParallelCommand.h"
 #import "CommandDelegate.h"
 #import "Command.h"
 
-SPEC_BEGIN(FLConcurrentCommandSpec)
+SPEC_BEGIN(FLParallelCommandSpec)
 
-        describe(@"FLConcurrentCommandSpec Tests", ^{
+        describe(@"FLParallelCommandSpec Tests", ^{
 
             context(@"when instantiated with no commands", ^{
 
-                __block ConcurrentCommand *command;
+                __block ParallelCommand *command;
                 __block CommandDelegate *delegate;
                 beforeEach(^{
-                    command = [[ConcurrentCommand alloc] init];
+                    command = [[ParallelCommand alloc] init];
                     delegate = [[CommandDelegate alloc] init];
                     command.delegate = delegate;
                 });
 
-                it(@"instantiates FLConcurrentCommand", ^{
-                    [[command should] beKindOfClass:[ConcurrentCommand class]];
-                    [[command should] beKindOfClass:[FLConcurrentCommand class]];
+                it(@"instantiates FLParallelCommand", ^{
+                    [[command should] beKindOfClass:[ParallelCommand class]];
+                    [[command should] beKindOfClass:[FLParallelCommand class]];
                     [[command should] beKindOfClass:[FLCommand class]];
                     [[command should] conformToProtocol:@protocol(FLCommandDelegate)];
                 });
@@ -62,7 +62,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
 
             context(@"when instantiated with commands", ^{
 
-                __block ConcurrentCommand *command;
+                __block ParallelCommand *command;
                 __block CommandDelegate *delegate;
                 __block Command *command1;
                 __block Command *command2;
@@ -72,7 +72,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     command2 = [[Command alloc] init];
                     command3 = [[Command alloc] init];
 
-                    command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3]];
+                    command = [[ParallelCommand alloc] initWithCommands:@[command1, command2, command3]];
                     delegate = [[CommandDelegate alloc] init];
                     command.delegate = delegate;
                 });
@@ -203,7 +203,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
 
             context(@"when instantiated with a failing command and stopOnError is set to NO", ^{
 
-                __block ConcurrentCommand *command;
+                __block ParallelCommand *command;
                 __block CommandDelegate *delegate;
                 __block Command *command1;
                 __block Command *command2;
@@ -219,7 +219,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     command2.didExecuteDelay = 0.2;
                     command3.didExecuteDelay = 0.3;
 
-                    command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:NO];
+                    command = [[ParallelCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:NO];
                     delegate = [[CommandDelegate alloc] init];
                     command.delegate = delegate;
                     [command execute];
@@ -246,7 +246,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
             });
             context(@"when instantiated with a failing command and stopOnError is set to YES", ^{
 
-                __block ConcurrentCommand *command;
+                __block ParallelCommand *command;
                 __block CommandDelegate *delegate;
                 __block Command *command1;
                 __block Command *command2;
@@ -262,7 +262,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     command2.didExecuteDelay = 0.2;
                     command3.didExecuteDelay = 0.3;
 
-                    command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:YES cancelOnCancel:NO];
+                    command = [[ParallelCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:YES cancelOnCancel:NO];
                     delegate = [[CommandDelegate alloc] init];
                     command.delegate = delegate;
                     [command execute];
@@ -290,7 +290,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
 
             context(@"when instantiated with a cancelling command and cancelOnCancel is set to NO", ^{
 
-                __block ConcurrentCommand *command;
+                __block ParallelCommand *command;
                 __block CommandDelegate *delegate;
                 __block Command *command1;
                 __block Command *command2;
@@ -302,7 +302,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
 
                     command2.executeAndCancel = YES;
 
-                    command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:NO];
+                    command = [[ParallelCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:NO];
                     delegate = [[CommandDelegate alloc] init];
                     command.delegate = delegate;
                     [command execute];
@@ -330,7 +330,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
 
             context(@"when instantiated with a cancelling command and cancelOnCancel is set to YES", ^{
 
-                __block ConcurrentCommand *command;
+                __block ParallelCommand *command;
                 __block CommandDelegate *delegate;
                 __block Command *command1;
                 __block Command *command2;
@@ -342,7 +342,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
 
                     command2.executeAndCancel = YES;
 
-                    command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:YES];
+                    command = [[ParallelCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:YES];
                     delegate = [[CommandDelegate alloc] init];
                     command.delegate = delegate;
                     [command execute];
@@ -370,7 +370,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
 
             context(@"when multiple commands execute immediately", ^{
 
-                __block ConcurrentCommand *command;
+                __block ParallelCommand *command;
                 __block Command *command1;
                 __block Command *command2;
                 __block Command *command3;
@@ -383,7 +383,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     command2.didExecuteDelay = 0.0;
                     command3.didExecuteDelay = 0.0;
 
-                    command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:NO];
+                    command = [[ParallelCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:NO];
                     [command execute];
                 });
 
@@ -395,7 +395,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
 
             context(@"when multiple commands cancel immediately", ^{
 
-                __block ConcurrentCommand *command;
+                __block ParallelCommand *command;
                 __block Command *command1;
                 __block Command *command2;
                 __block Command *command3;
@@ -408,7 +408,7 @@ SPEC_BEGIN(FLConcurrentCommandSpec)
                     command2.didExecuteDelay = 0.0;
                     command3.didExecuteDelay = 0.0;
 
-                    command = [[ConcurrentCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:NO];
+                    command = [[ParallelCommand alloc] initWithCommands:@[command1, command2, command3] stopOnError:NO cancelOnCancel:NO];
                     [command execute];
                 });
 

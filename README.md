@@ -8,7 +8,7 @@ A command usually contains a small part of synchronous or asynchronous logic and
 as much as you like. Floc Commands comes with a bunch of handy commands such as:
 
 * Sequence Command (executes commands one after another)
-* Concurrent Command (executes commands all at once)
+* Parallel Command (executes commands all at once)
 * Interception Command (executes commands depending on the target command's execution result)
 * Block Command (executes a block)
 * Master Slave Command (cancels the slave command as soon the master command did execute)
@@ -77,13 +77,13 @@ Available options:
 [[FLSequenceCommand alloc] initWithCommands:@[c1, c2, c3, c4]];
 ```
 
-FLConcurrentCommand.
+FLParallelCommand.
 Available options:
 * `stopOnError` will stop, when an error occoured
 * `cancelOnCancel` will cancel, when a sub command got cancelled
 
 ```objective-c
-[[FLConcurrentCommand alloc] initWithCommands:@[c1, c2, c3, c4]];
+[[FLPrallelCommand alloc] initWithCommands:@[c1, c2, c3, c4]];
 ```
 
 FLInterceptionCommand.

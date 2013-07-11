@@ -4,15 +4,15 @@
 // contact@sschmid.com
 //
 
-#import "ConcurrentCommand.h"
-@interface ConcurrentCommand ()
+#import "ParallelCommand.h"
+@interface ParallelCommand ()
 @property(nonatomic) BOOL didStartExecution;
 @property(nonatomic) BOOL didCompleteExecution;
 @property(nonatomic) BOOL didGetCancelled;
 @property(nonatomic) NSError *error;
 @end
 
-@implementation ConcurrentCommand
+@implementation ParallelCommand
 - (void)execute {
     self.willExecuteCount++;
 

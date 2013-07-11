@@ -5,9 +5,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FLConcurrentCommand.h"
+#import "FLParallelCommand.h"
 
-@interface ConcurrentCommand : FLConcurrentCommand
+@interface ParallelCommand : FLParallelCommand
 @property(nonatomic) int willExecuteCount;
 @property(nonatomic) int didExecuteCount;
 @property(nonatomic) int didCancelCount;

@@ -8,7 +8,7 @@
 #import "FLBlockCommand.h"
 #import "FLRepeatCommand.h"
 #import "FLSequenceCommand.h"
-#import "FLCommandFlow.h"
+#import "FLCommand+Floc.h"
 
 @interface BatmanTheme ()
 @property(nonatomic, strong) FLCommand *theme;
@@ -21,7 +21,7 @@
     if (self) {
 
         //[self theLongWay];
-        [self theFLWay];
+        //[self theFLWay];
 
     }
 
@@ -46,13 +46,13 @@
 }
 
 - (void)theFLWay {
-    self.theme = FLCFlow.flcmd(^(FLBlockCommand *command) {
+    self.theme = FLBC(^(FLBlockCommand *command) {
         NSLog(@"na");
         [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.2];
-    }).repeat(16).flcmd(^(FLBlockCommand *command) {
+    }).repeat(16).flseq(FLBC(^(FLBlockCommand *command) {
         NSLog(@"Batman!");
         [command didExecute];
-    });
+    })).repeat(2);
 
     [self.theme execute];
 }
