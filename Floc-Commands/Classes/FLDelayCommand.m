@@ -8,6 +8,7 @@
 
 @interface FLDelayCommand ()
 @property(nonatomic) double delay;
+@property(nonatomic, strong) NSTimer *timer;
 @end
 
 @implementation FLDelayCommand
@@ -16,7 +17,6 @@
     self = [self initWithDelay:0];
     return self;
 }
-
 
 - (id)initWithDelay:(double)delay {
     self = [super init];
@@ -29,7 +29,12 @@
 
 - (void)execute {
     [super execute];
-    [self performSelector:@selector(didExecute) withObject:nil afterDelay:self.delay];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:self.delay target:self selector:@selector(didExecute) userInfo:nil repeats:NO];
+}
+
+- (void)cancel {
+    [self.timer invalidate];
+    [super cancel];
 }
 
 @end

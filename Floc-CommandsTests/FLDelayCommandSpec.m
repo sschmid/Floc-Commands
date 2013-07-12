@@ -19,9 +19,16 @@ SPEC_BEGIN(FLDelayCommandSpec)
             });
             
             it(@"finishes execution after a delay", ^{
-                DelayCommand *command = [[DelayCommand alloc] initWithDelay:0.5];
+                DelayCommand *command = [[DelayCommand alloc] initWithDelay:0.1];
                 [command execute];
                 [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+            });
+
+            it(@"cancels", ^{
+                DelayCommand *command = [[DelayCommand alloc] initWithDelay:0.1];
+                [command execute];
+                [command cancel];
+                [[expectFutureValue(theValue(command.isInCancelledState)) shouldEventually] beYes];
             });
 
         });
