@@ -96,8 +96,25 @@ SPEC_BEGIN(FlocCommandsAdditions)
                 [command.flseq(command2, command3) execute];
 
                 [[theValue(command.isInExecuteState) should] beYes];
-                [[theValue(command2.isInExecuteState) should] beNo];
-                [[theValue(command3.isInExecuteState) should] beNo];
+                [[theValue(command2.isInInitialState) should] beYes];
+                [[theValue(command3.isInInitialState) should] beYes];
+                [[theValue(command3.isInInitialState) should] beYes];
+                [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                [[expectFutureValue(theValue(command2.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                [[expectFutureValue(theValue(command3.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+            });
+
+            it(@"executes sequential", ^{
+                Command *command2 = [[Command alloc] init];
+                Command *command3 = [[Command alloc] init];
+
+                [[command.then(command2) should] beKindOfClass:[FLSequenceCommand class]];
+                [command.then(command2).then(command3) execute];
+
+                [[theValue(command.isInExecuteState) should] beYes];
+                [[theValue(command2.isInInitialState) should] beYes];
+                [[theValue(command3.isInInitialState) should] beYes];
+                [[theValue(command3.isInInitialState) should] beYes];
                 [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                 [[expectFutureValue(theValue(command2.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                 [[expectFutureValue(theValue(command3.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
@@ -110,11 +127,11 @@ SPEC_BEGIN(FlocCommandsAdditions)
                 [[command.intercept(success, error) should] beKindOfClass:[FLInterceptionCommand class]];
                 [command.intercept(success, error) execute];
                 [[theValue(command.isInExecuteState) should] beYes];
-                [[theValue(success.isInExecuteState) should] beNo];
-                [[theValue(error.isInExecuteState) should] beNo];
+                [[theValue(success.isInInitialState) should] beYes];
+                [[theValue(error.isInInitialState) should] beYes];
                 [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
                 [[expectFutureValue(theValue(success.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(error.isInDidExecuteWithoutErrorState)) shouldEventually] beNo];
+                [[expectFutureValue(theValue(error.isInInitialState)) shouldEventually] beYes];
             });
 
             it(@"intercepts on error", ^{
@@ -125,10 +142,10 @@ SPEC_BEGIN(FlocCommandsAdditions)
                 [[command.intercept(success, error) should] beKindOfClass:[FLInterceptionCommand class]];
                 [command.intercept(success, error) execute];
                 [[theValue(command.isInExecuteState) should] beYes];
-                [[theValue(success.isInExecuteState) should] beNo];
-                [[theValue(error.isInExecuteState) should] beNo];
+                [[theValue(success.isInInitialState) should] beYes];
+                [[theValue(error.isInInitialState) should] beYes];
                 [[expectFutureValue(theValue(command.isInDidExecuteWithErrorState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(success.isInDidExecuteWithoutErrorState)) shouldEventually] beNo];
+                [[expectFutureValue(theValue(success.isInInitialState)) shouldEventually] beYes];
                 [[expectFutureValue(theValue(error.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
             });
 

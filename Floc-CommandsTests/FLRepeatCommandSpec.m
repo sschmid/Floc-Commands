@@ -90,7 +90,7 @@ SPEC_BEGIN(FLRepeatCommandSpec)
                         command = [[RepeatCommand alloc] initWithCommand:targetCommand repeat:-1];
                         [command execute];
 
-                        [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beNo];
+                        [[expectFutureValue(theValue(command.isInExecuteState)) shouldEventually] beYes];
                         [[expectFutureValue(theValue(command.didExecuteCount)) shouldEventually] equal:theValue(0)];
                         [[expectFutureValue(theValue(targetCommand.isInExecuteState)) shouldEventually] beYes];
                         [[expectFutureValue(theValue(targetCommand.didExecuteCount)) shouldEventually] beGreaterThan:theValue(10)];

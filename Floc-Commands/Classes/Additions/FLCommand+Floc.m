@@ -38,14 +38,20 @@
     };
 }
 
+- (FLCFCommandBlock)then {
+    return ^FLCommand *(FLCommand *command) {
+        return [[FLSequenceCommand alloc] initWithCommands:@[self, command] stopOnError:YES cancelOnCancel:YES];
+    };
+}
+
 - (FLCFCountBlock)repeat {
-    return ^FLCommand *(NSUInteger repeat) {
+    return ^FLCommand *(NSInteger repeat) {
         return [[FLRepeatCommand alloc] initWithCommand:self repeat:repeat];
     };
 }
 
 - (FLCFCountBlock)retry {
-    return ^FLCommand *(NSUInteger retry) {
+    return ^FLCommand *(NSInteger retry) {
         return [[FLRetryCommand alloc] initWithCommand:self retry:retry];
     };
 }
