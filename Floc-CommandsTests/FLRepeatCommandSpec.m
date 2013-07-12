@@ -84,6 +84,20 @@ SPEC_BEGIN(FLRepeatCommandSpec)
 
                 });
 
+                context(@"when repeat count is set to -1", ^{
+
+                    it(@"repeats target command forever", ^{
+                        command = [[RepeatCommand alloc] initWithCommand:targetCommand repeat:-1];
+                        [command execute];
+
+                        [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beNo];
+                        [[expectFutureValue(theValue(command.didExecuteCount)) shouldEventually] equal:theValue(0)];
+                        [[expectFutureValue(theValue(targetCommand.isInExecuteState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(targetCommand.didExecuteCount)) shouldEventually] beGreaterThan:theValue(10)];
+                    });
+
+                });
+
             });
 
             context(@"when initialized with a failing target command", ^{

@@ -8,8 +8,8 @@
 
 @interface FLRetryCommand ()
 @property(nonatomic, strong) FLCommand *command;
-@property(nonatomic, readwrite) NSUInteger retryCount;
-@property(nonatomic) NSUInteger didRetryCount;
+@property(nonatomic, readwrite) NSInteger retryCount;
+@property(nonatomic) NSInteger didRetryCount;
 @property(nonatomic) BOOL didCommandCancel;
 @end
 
@@ -20,7 +20,7 @@
     return self;
 }
 
-- (id)initWithCommand:(FLCommand *)command retry:(NSUInteger)retryCount {
+- (id)initWithCommand:(FLCommand *)command retry:(NSInteger)retryCount {
     self = [super init];
     if (self) {
         if (!command)
@@ -53,7 +53,7 @@
 }
 
 - (void)command:(FLCommand *)command didExecuteWithError:(NSError *)error {
-    if (error && self.didRetryCount < self.retryCount) {
+    if (error && ( self.retryCount == -1 || self.didRetryCount < self.retryCount)) {
         self.didRetryCount++;
         [command execute];
     } else {

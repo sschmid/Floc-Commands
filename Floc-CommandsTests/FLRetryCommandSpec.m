@@ -109,6 +109,20 @@ SPEC_BEGIN(FLRetryCommandSpec)
 
                 });
 
+                context(@"when retry count is set to -1", ^{
+
+                    it(@"retries forever", ^{
+                        command = [[RetryCommand alloc] initWithCommand:targetCommand retry:-1];
+                        [command execute];
+
+                        [[expectFutureValue(theValue(command.isInDidExecuteWithErrorState)) shouldEventually] beNo];
+                        [[expectFutureValue(theValue(command.didExecuteCount)) shouldEventually] equal:theValue(0)];
+                        [[expectFutureValue(theValue(targetCommand.isInExecuteState)) shouldEventually] beYes];
+                        [[expectFutureValue(theValue(targetCommand.didExecuteCount)) shouldEventually] beGreaterThan:theValue(10)];
+                    });
+
+                });
+
             });
 
             context(@"when initialized with successful command", ^{

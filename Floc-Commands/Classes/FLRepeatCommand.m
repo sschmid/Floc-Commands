@@ -52,7 +52,7 @@
 }
 
 - (void)command:(FLCommand *)command didExecuteWithError:(NSError *)error {
-    if (!error && self.didRepeatCount < self.repeatCount) {
+    if (!error && (self.repeatCount == -1 || self.didRepeatCount < self.repeatCount)) {
         self.didRepeatCount++;
         [self.command execute];
     } else {
