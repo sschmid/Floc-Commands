@@ -29,8 +29,8 @@ SPEC_BEGIN(FlocCommandsAdditionsSpec)
                 FLBC(^(FLBlockCommand *command) {});
                 FLIC(cmd, cmd, cmd);
                 FLICO(cmd, cmd, cmd, NO, NO);
-                FLMSC(cmd, cmd);
-                FLMSCO(cmd, cmd, NO);
+                FLMS(cmd, cmd);
+                FLMSO(cmd, cmd, NO);
                 FLPL(cmds);
                 FLPLO(cmds, NO, NO);
                 FLRP(cmd, NO);
