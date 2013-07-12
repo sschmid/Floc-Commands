@@ -65,7 +65,7 @@
     })).then(FLBC(^(FLBlockCommand *command) {
         NSLog(@"    ... (Jocker tries to hit batman)");
         NSError *error = [NSError errorWithDomain:@"Jocker missed..." code:0 userInfo:nil];
-        [command performSelector:@selector(didExecuteWithError:) withObject:error afterDelay:2];
+        [command performSelector:@selector(didExecuteWithError:) withObject:error afterDelay:1];
     }).retry(1)).intercept(FLBC(^(FLBlockCommand *command) {
         NSLog(@"    Batman: Ouch!");
         [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.2];

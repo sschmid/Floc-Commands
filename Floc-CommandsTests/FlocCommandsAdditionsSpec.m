@@ -16,10 +16,11 @@
 #import "ParallelCommand.h"
 #import "FLBlockCommand.h"
 #import "FLSequenceCommand.h"
+#import "DelayCommand.h"
 
-SPEC_BEGIN(FlocCommandsAdditions)
+SPEC_BEGIN(FlocCommandsAdditionsSpec)
 
-        describe(@"FlocCommandsAdditions Tests", ^{
+        describe(@"FlocCommandsAdditionsSpec Tests", ^{
 
             it(@"has a bunch of macros", ^{
                 FLCommand *cmd = [[FLCommand alloc] init];
@@ -36,6 +37,7 @@ SPEC_BEGIN(FlocCommandsAdditions)
                 FLRT(cmd, NO);
                 FLSQ(cmds);
                 FLSQO(cmds, NO, NO);
+                FLDLY(0.5);
             });
 
             __block Command *command;

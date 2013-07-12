@@ -18,6 +18,7 @@
 #define FLRT(__command__, __retry__) [[FLRetryCommand alloc] initWithCommand:__command__ retry:__retry__]
 #define FLSQ(__commands__) [[FLSequenceCommand alloc] initWithCommands:__commands__]
 #define FLSQO(__commands__, __stop__, __cancel__) [[FLSequenceCommand alloc] initWithCommands:__commands__ stopOnError:__stop__ cancelOnCancel:__cancel__]
+#define FLDLY(__delay__) [[FLDelayCommand alloc] initWithDelay:__delay__]
 
 #define flpar(...) parallel(__VA_ARGS__, nil)
 #define flseq(...) sequence(__VA_ARGS__, nil)

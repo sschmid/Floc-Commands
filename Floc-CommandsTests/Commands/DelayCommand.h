@@ -5,14 +5,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FLCommand.h"
+#import "FLDelayCommand.h"
 
-@interface Command : FLCommand
-@property (nonatomic) float didExecuteDelay;
-@property (nonatomic) BOOL executeWithError;
-@property (nonatomic) BOOL executeAndCancel;
-@property (nonatomic) BOOL resetExecuteWithErrorAfterDidExecute;
-
+@interface DelayCommand : FLDelayCommand
 @property(nonatomic) int willExecuteCount;
 @property(nonatomic) int didExecuteCount;
 @property(nonatomic) int didCancelCount;
