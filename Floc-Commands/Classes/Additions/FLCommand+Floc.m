@@ -9,6 +9,8 @@
 #import "FLRetryCommand.h"
 #import "FLParallelCommand.h"
 #import "FLSequenceCommand.h"
+#import "FLInterceptionCommand.h"
+#import "FLMasterSlaveCommand.h"
 
 @implementation FLCommand (Floc)
 
@@ -45,6 +47,18 @@
 - (FLCFCountBlock)retry {
     return ^FLCommand *(NSUInteger retry) {
         return [[FLRetryCommand alloc] initWithCommand:self retry:retry];
+    };
+}
+
+- (FLCFChoiceBlock)intercept {
+    return ^FLCommand *(FLCommand *success, FLCommand *error) {
+        return [[FLInterceptionCommand alloc] initWithTarget:self success:success error:error];
+    };
+}
+
+- (FLCFCommandBlock)slave {
+    return ^FLCommand *(FLCommand *slave) {
+        return [[FLMasterSlaveCommand alloc] initWithMaster:self slave:slave];
     };
 }
 

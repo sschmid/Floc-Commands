@@ -9,6 +9,11 @@
 #import "FLRepeatCommand.h"
 #import "FLSequenceCommand.h"
 #import "FLCommand+Floc.h"
+#import "FLInterceptionCommand.h"
+#import "FLMasterSlaveCommand.h"
+#import "MasterSlaveCommand.h"
+#import "ParallelCommand.h"
+#import "FLRetryCommand.h"
 
 @interface BatmanTheme ()
 @property(nonatomic, strong) FLCommand *theme;
