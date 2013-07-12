@@ -6,6 +6,7 @@
 
 #import "BatmanTheme.h"
 #import "FLCommand+Floc.h"
+#import "FLCommand+KeepAlive.h"
 #import "FLBlockCommand.h"
 #import "FLRepeatCommand.h"
 #import "FLSequenceCommand.h"
@@ -46,7 +47,7 @@
 }
 
 - (void)theFLWay {
-    self.theme = FLBC(^(FLBlockCommand *command) {
+    FLBC(^(FLBlockCommand *command) {
         NSLog(@"    Jocker: Ha! Batman, come here and fight me!");
         [command performSelector:@selector(didExecute) withObject:nil afterDelay:1];
     }).flseq(FLBC(^(FLBlockCommand *command) {
@@ -58,7 +59,7 @@
     }), FLBC(^(FLBlockCommand *command) {
         NSLog(@"     ZACK!");
         [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.2];
-    }),FLBC(^(FLBlockCommand *command) {
+    }), FLBC(^(FLBlockCommand *command) {
         NSLog(@"                     POW!");
         [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.2];
     })).then(FLBC(^(FLBlockCommand *command) {
@@ -77,9 +78,7 @@
     }).repeat(16).flseq(FLBC(^(FLBlockCommand *command) {
         NSLog(@"Batman!");
         [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.2];
-    })).repeat(-1));
-
-    [self.theme execute];
+    })).repeat(-1)).keepAlive.execute;
 }
 
 @end

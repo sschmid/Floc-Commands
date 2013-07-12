@@ -9,7 +9,7 @@
 
 #define FLBC(__block__) [[FLBlockCommand alloc] initWithBlock:__block__]
 #define FLIC(__targetCommand__, __successCommand__, __errorCommand__) [[FLInterceptionCommand alloc] initWithTarget:__targetCommand__ success:__successCommand__ error:__errorCommand__]
-#define FLICO(__targetCommand__, __successCommand__, __errorCommand__, __cancel__, forward) [[FLInterceptionCommand alloc] initWithTarget:__targetCommand__ success:__successCommand__ error:__errorCommand__ cancelOnCancel:__cancel__ forwardTargetError:forward]
+#define FLICO(__targetCommand__, __successCommand__, __errorCommand__, __cancel__, __forward__) [[FLInterceptionCommand alloc] initWithTarget:__targetCommand__ success:__successCommand__ error:__errorCommand__ cancelOnCancel:__cancel__ forwardTargetError:__forward__]
 #define FLMSC(__masterCommand__, __slaveCommand__) [[MasterSlaveCommand alloc] initWithMaster:__masterCommand__ slave:__slaveCommand__]
 #define FLMSCO(__masterCommand__, __slaveCommand__, __forward__) [[MasterSlaveCommand alloc] initWithMaster:__masterCommand__ slave:__slaveCommand__ forwardMasterError:__forward__]
 #define FLPL(__commands__) [[ParallelCommand alloc] initWithCommands:__commands__]
@@ -29,9 +29,9 @@ typedef FLCommand *(^FLCFCommandsBlock)(FLCommand *, ...); //NS_REQUIRES_NIL_TER
 typedef FLCommand *(^FLCFCountBlock)(NSInteger);
 typedef FLCommand *(^FLCFChoiceBlock)(FLCommand *, FLCommand *);
 
+@property(nonatomic, copy, readonly) FLCFCommandBlock then;
 @property(nonatomic, copy, readonly) FLCFCommandsBlock parallel; // Hint: use macro par
 @property(nonatomic, copy, readonly) FLCFCommandsBlock sequence; // Hint: use macro seq
-@property(nonatomic, copy, readonly) FLCFCommandBlock then; // Hint: use macro seq
 @property(nonatomic, copy, readonly) FLCFCountBlock repeat;
 @property(nonatomic, copy, readonly) FLCFCountBlock retry;
 @property(nonatomic, copy, readonly) FLCFChoiceBlock intercept;

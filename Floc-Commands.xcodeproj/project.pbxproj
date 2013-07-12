@@ -30,6 +30,7 @@
 		8D4DF7A0215832EB0168B668 /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF945BABE9236D3292936 /* Command.m */; };
 		8D4DF7A3603400FF8A9F9ABE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4DF125243DEFE07EF28D58 /* Default-568h@2x.png */; };
 		8D4DF8135C941422609CB45B /* Icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4DF724D783D7AA2A004908 /* Icon-144.png */; };
+		8D4DF85BAA9EF81C52285070 /* FLCommand+KeepAlive.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF4F02E2459003D1F93FA /* FLCommand+KeepAlive.m */; };
 		8D4DF8AD9B412608C6D3745D /* FLParallelCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFAB28509E770FD37AA95 /* FLParallelCommandSpec.m */; };
 		8D4DFABF45B96DB79E8734D7 /* FLSequenceCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF07129F1616CDFEB38DD /* FLSequenceCommandSpec.m */; };
 		8D4DFAC96DF0E7C43B16296C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4DF22574A86539778ACF4A /* Default.png */; };
@@ -72,6 +73,7 @@
 		8D4DF045142D78327F66987A /* FLParallelCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLParallelCommand.m; sourceTree = "<group>"; };
 		8D4DF07129F1616CDFEB38DD /* FLSequenceCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSequenceCommandSpec.m; sourceTree = "<group>"; };
 		8D4DF0A2C56A43DFBE436A98 /* FLParallelCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLParallelCommand.h; sourceTree = "<group>"; };
+		8D4DF0AC8AF85C7E4D1C384B /* FLCommand+KeepAlive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FLCommand+KeepAlive.h"; sourceTree = "<group>"; };
 		8D4DF0EEC14BE01F514CEFA7 /* Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
 		8D4DF125243DEFE07EF28D58 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		8D4DF1A88582813BF5A8846A /* FLCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLCommand.m; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 		8D4DF3A2130E911C635E0F51 /* FLCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLCommandSpec.m; sourceTree = "<group>"; };
 		8D4DF3BF82D242D6AE375E11 /* FLRepeatCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLRepeatCommand.h; sourceTree = "<group>"; };
 		8D4DF46AFE6928753721B18F /* FLSequenceCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSequenceCommand.m; sourceTree = "<group>"; };
+		8D4DF4F02E2459003D1F93FA /* FLCommand+KeepAlive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FLCommand+KeepAlive.m"; sourceTree = "<group>"; };
 		8D4DF64B2AA38A40A3ED9DAE /* ParallelCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallelCommand.h; sourceTree = "<group>"; };
 		8D4DF65F407D3307F072B942 /* FLCommand+Floc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FLCommand+Floc.m"; sourceTree = "<group>"; };
 		8D4DF66B63F99143A6768263 /* CommandDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandDelegate.m; sourceTree = "<group>"; };
@@ -247,6 +250,8 @@
 			children = (
 				8D4DF65F407D3307F072B942 /* FLCommand+Floc.m */,
 				8D4DF6ABE8C7730E06E3C2BF /* FLCommand+Floc.h */,
+				8D4DF4F02E2459003D1F93FA /* FLCommand+KeepAlive.m */,
+				8D4DF0AC8AF85C7E4D1C384B /* FLCommand+KeepAlive.h */,
 			);
 			path = Additions;
 			sourceTree = "<group>";
@@ -492,6 +497,7 @@
 				8D4DF77BFFD103074F0CDB89 /* FLRepeatCommand.m in Sources */,
 				8D4DFEE30052CE95A784F791 /* BatmanTheme.m in Sources */,
 				8D4DF4DAAD293B4A0BDCA455 /* FLCommand+Floc.m in Sources */,
+				8D4DF85BAA9EF81C52285070 /* FLCommand+KeepAlive.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
