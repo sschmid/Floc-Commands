@@ -31,8 +31,8 @@ typedef FLCommand *(^FLCFCountBlock)(NSInteger);
 typedef FLCommand *(^FLCFChoiceBlock)(FLCommand *, FLCommand *);
 
 @property(nonatomic, copy, readonly) FLCFCommandBlock then;
-@property(nonatomic, copy, readonly) FLCFCommandsBlock parallel; // Hint: use macro par
-@property(nonatomic, copy, readonly) FLCFCommandsBlock sequence; // Hint: use macro seq
+@property(nonatomic, copy, readonly) FLCFCommandsBlock parallel; // Hint: use macro flpar, to avoid nil termination
+@property(nonatomic, copy, readonly) FLCFCommandsBlock sequence; // Hint: use macro flseq, to avoid nil termination
 @property(nonatomic, copy, readonly) FLCFCountBlock repeat;
 @property(nonatomic, copy, readonly) FLCFCountBlock retry;
 @property(nonatomic, copy, readonly) FLCFChoiceBlock intercept;
