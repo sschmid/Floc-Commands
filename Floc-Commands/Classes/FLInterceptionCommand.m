@@ -9,9 +9,9 @@
 @interface FLInterceptionCommand ()
 @property(nonatomic, readwrite) BOOL cancelOnCancel;
 @property(nonatomic, readwrite) BOOL forwardTargetError;
-@property(nonatomic, strong) FLCommand *targetCommand;
-@property(nonatomic, strong) FLCommand *successCommand;
-@property(nonatomic, strong) FLCommand *errorCommand;
+@property(nonatomic, strong, readwrite) FLCommand *targetCommand;
+@property(nonatomic, strong, readwrite) FLCommand *successCommand;
+@property(nonatomic, strong, readwrite) FLCommand *errorCommand;
 @property(nonatomic, strong) FLCommand *currentCommand;
 @property(nonatomic, strong) NSError *targetError;
 @end

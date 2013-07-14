@@ -7,7 +7,7 @@
 #import "FLRetryCommand.h"
 
 @interface FLRetryCommand ()
-@property(nonatomic, strong) FLCommand *command;
+@property(nonatomic, strong, readwrite) FLCommand *command;
 @property(nonatomic, readwrite) NSInteger retryCount;
 @property(nonatomic) NSInteger didRetryCount;
 @property(nonatomic) BOOL didCommandCancel;

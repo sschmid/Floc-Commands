@@ -7,8 +7,8 @@
 #import "FLRepeatCommand.h"
 
 @interface FLRepeatCommand ()
-@property(nonatomic, strong) FLCommand *command;
-@property(nonatomic) NSInteger repeatCount;
+@property(nonatomic, strong, readwrite) FLCommand *command;
+@property(nonatomic, readwrite) NSInteger repeatCount;
 @property(nonatomic) NSInteger didRepeatCount;
 @property(nonatomic) BOOL didCommandCancel;
 @end

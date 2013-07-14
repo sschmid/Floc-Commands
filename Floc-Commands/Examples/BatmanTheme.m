@@ -10,6 +10,10 @@
 #import "FLBlockCommand.h"
 #import "FLRepeatCommand.h"
 #import "FLSequenceCommand.h"
+#import "FLInterceptionCommand+Floc.h"
+#import "FLMasterSlaveCommand+Floc.h"
+#import "FLSequenceCommand+Floc.h"
+#import "FLRetryCommand.h"
 
 @interface BatmanTheme ()
 @property(nonatomic, strong) FLCommand *theme;
@@ -62,11 +66,11 @@
     }), FLBC(^(FLBlockCommand *command) {
         NSLog(@"                     POW!");
         [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.2];
-    })).then(FLBC(^(FLBlockCommand *command) {
+    })).flseq(FLBC(^(FLBlockCommand *command) {
         NSLog(@"    ... (Jocker tries to hit batman)");
         NSError *error = [NSError errorWithDomain:@"Jocker missed..." code:0 userInfo:nil];
         [command performSelector:@selector(didExecuteWithError:) withObject:error afterDelay:1];
-    }).retry(1)).intercept(FLBC(^(FLBlockCommand *command) {
+    }).retry(1)).stopsOnError(YES).intercept(FLBC(^(FLBlockCommand *command) {
         NSLog(@"    Batman: Ouch!");
         [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.2];
     }), FLBC(^(FLBlockCommand *command) {

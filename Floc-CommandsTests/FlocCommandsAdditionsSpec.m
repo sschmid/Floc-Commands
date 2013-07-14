@@ -17,6 +17,10 @@
 #import "FLBlockCommand.h"
 #import "FLSequenceCommand.h"
 #import "DelayCommand.h"
+#import "FLParallelCommand+Floc.h"
+#import "FLSequenceCommand+Floc.h"
+#import "FLInterceptionCommand+Floc.h"
+#import "FLMasterSlaveCommand+Floc.h"
 
 SPEC_BEGIN(FlocCommandsAdditionsSpec)
 
@@ -27,6 +31,7 @@ SPEC_BEGIN(FlocCommandsAdditionsSpec)
                 NSArray *cmds = @[cmd];
 
                 FLBC(^(FLBlockCommand *command) {});
+                FLDLY(0.5);
                 FLIC(cmd, cmd, cmd);
                 FLICO(cmd, cmd, cmd, NO, NO);
                 FLMS(cmd, cmd);
@@ -37,7 +42,6 @@ SPEC_BEGIN(FlocCommandsAdditionsSpec)
                 FLRT(cmd, NO);
                 FLSQ(cmds);
                 FLSQO(cmds, NO, NO);
-                FLDLY(0.5);
             });
 
             __block Command *command;
@@ -46,122 +50,91 @@ SPEC_BEGIN(FlocCommandsAdditionsSpec)
             });
 
             it(@"repeats command", ^{
-                [[command.repeat(2) should] beKindOfClass:[FLRepeatCommand class]];
-                [command.repeat(2) execute];
-                [[theValue(command.willExecuteCount) should] equal:theValue(1)];
-                [[expectFutureValue(theValue(command.didExecuteCount)) shouldEventually] equal:theValue(3)];
+                FLRepeatCommand *repeatCommand = command.repeat(2);
+                [[repeatCommand should] beKindOfClass:[FLRepeatCommand class]];
+                [[repeatCommand.command should] equal:command];
+                [[theValue(repeatCommand.repeatCount) should] equal:theValue(2)];
             });
 
             it(@"retries command", ^{
-                command.executeWithError = YES;
-                [[command.retry(2) should] beKindOfClass:[FLRetryCommand class]];
-                [command.retry(2) execute];
-                [[theValue(command.willExecuteCount) should] equal:theValue(1)];
-                [[expectFutureValue(theValue(command.didExecuteCount)) shouldEventually] equal:theValue(3)];
+                FLRetryCommand *retryCommand = command.retry(2);
+                [[retryCommand should] beKindOfClass:[FLRetryCommand class]];
+                [[retryCommand.command should] equal:command];
+                [[theValue(retryCommand.retryCount) should] equal:theValue(2)];
             });
 
             it(@"executes parallel", ^{
                 Command *command2 = [[Command alloc] init];
                 Command *command3 = [[Command alloc] init];
-
-                [[command.flpar(command2, command3) should] beKindOfClass:[FLParallelCommand class]];
-                [command.flpar(command2, command3) execute];
-
-                [[theValue(command.isInExecuteState) should] beYes];
-                [[theValue(command2.isInExecuteState) should] beYes];
-                [[theValue(command3.isInExecuteState) should] beYes];
-                [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(command2.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(command3.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                FLParallelCommand *parallelCommand = command.flpar(command2, command3);
+                [[parallelCommand should] beKindOfClass:[FLParallelCommand class]];
+                [[parallelCommand.commands should] equal:@[command, command2, command3]];
             });
 
             it(@"executes parallel with options", ^{
                 Command *command2 = [[Command alloc] init];
                 Command *command3 = [[Command alloc] init];
 
-                [[command.flpar(command2, command3) should] beKindOfClass:[FLParallelCommand class]];
-                [command.flpar(command2, command3) execute];
-
-                [[theValue(command.isInExecuteState) should] beYes];
-                [[theValue(command2.isInExecuteState) should] beYes];
-                [[theValue(command3.isInExecuteState) should] beYes];
-                [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(command2.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(command3.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                FLParallelCommand *parallelCommand = command.flpar(command2, command3).stopsOnError(YES).cancelsOnCancel(YES);
+                [[parallelCommand should] beKindOfClass:[FLParallelCommand class]];
+                [[theValue(parallelCommand.stopOnError) should] beYes];
+                [[theValue(parallelCommand.cancelOnCancel) should] beYes];
             });
 
             it(@"executes sequential", ^{
                 Command *command2 = [[Command alloc] init];
                 Command *command3 = [[Command alloc] init];
 
-                [[command.flseq(command2, command3) should] beKindOfClass:[FLSequenceCommand class]];
-                [command.flseq(command2, command3) execute];
-
-                [[theValue(command.isInExecuteState) should] beYes];
-                [[theValue(command2.isInInitialState) should] beYes];
-                [[theValue(command3.isInInitialState) should] beYes];
-                [[theValue(command3.isInInitialState) should] beYes];
-                [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(command2.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(command3.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                FLSequenceCommand *sequenceCommand = command.flseq(command2, command3);
+                [[sequenceCommand should] beKindOfClass:[FLSequenceCommand class]];
+                [[sequenceCommand.commands should] equal:@[command, command2, command3]];
             });
 
-            it(@"executes sequential", ^{
+            it(@"executes sequential with options", ^{
                 Command *command2 = [[Command alloc] init];
                 Command *command3 = [[Command alloc] init];
 
-                [[command.then(command2) should] beKindOfClass:[FLSequenceCommand class]];
-                [command.then(command2).then(command3) execute];
-
-                [[theValue(command.isInExecuteState) should] beYes];
-                [[theValue(command2.isInInitialState) should] beYes];
-                [[theValue(command3.isInInitialState) should] beYes];
-                [[theValue(command3.isInInitialState) should] beYes];
-                [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(command2.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(command3.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                FLSequenceCommand *sequenceCommand = command.flseq(command2, command3).stopsOnError(YES).cancelsOnCancel(YES);
+                [[sequenceCommand should] beKindOfClass:[FLSequenceCommand class]];
+                [[theValue(sequenceCommand.stopOnError) should] beYes];
+                [[theValue(sequenceCommand.cancelOnCancel) should] beYes];
             });
 
             it(@"intercepts on success", ^{
                 Command *success = [[Command alloc] init];
                 Command *error = [[Command alloc] init];
 
-                [[command.intercept(success, error) should] beKindOfClass:[FLInterceptionCommand class]];
-                [command.intercept(success, error) execute];
-                [[theValue(command.isInExecuteState) should] beYes];
-                [[theValue(success.isInInitialState) should] beYes];
-                [[theValue(error.isInInitialState) should] beYes];
-                [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(success.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(error.isInInitialState)) shouldEventually] beYes];
+                FLInterceptionCommand *interceptionCommand = command.intercept(success, error);
+                [[interceptionCommand should] beKindOfClass:[FLInterceptionCommand class]];
+                [[interceptionCommand.targetCommand should] equal:command];
+                [[interceptionCommand.successCommand should] equal:success];
+                [[interceptionCommand.errorCommand should] equal:error];
             });
 
-            it(@"intercepts on error", ^{
+            it(@"intercepts with options", ^{
                 Command *success = [[Command alloc] init];
                 Command *error = [[Command alloc] init];
-                command.executeWithError = YES;
 
-                [[command.intercept(success, error) should] beKindOfClass:[FLInterceptionCommand class]];
-                [command.intercept(success, error) execute];
-                [[theValue(command.isInExecuteState) should] beYes];
-                [[theValue(success.isInInitialState) should] beYes];
-                [[theValue(error.isInInitialState) should] beYes];
-                [[expectFutureValue(theValue(command.isInDidExecuteWithErrorState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(success.isInInitialState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(error.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
+                FLInterceptionCommand *interceptionCommand = command.intercept(success, error).cancelsOnCancel(YES).forwardsTargetError(YES);
+                [[interceptionCommand should] beKindOfClass:[FLInterceptionCommand class]];
+                [[theValue(interceptionCommand.cancelOnCancel) should] beYes];
+                [[theValue(interceptionCommand.forwardTargetError) should] beYes];
             });
 
             it(@"master-slaves", ^{
                 Command *slave = [[Command alloc] init];
-                slave.didExecuteDelay = 1;
+                FLMasterSlaveCommand *masterSlaveCommand = command.slave(slave);
+                [[masterSlaveCommand should] beKindOfClass:[FLMasterSlaveCommand class]];
+                [[masterSlaveCommand.masterCommand should] equal:command];
+                [[masterSlaveCommand.slaveCommand should] equal:slave];
+            });
 
-                [[command.slave(slave) should] beKindOfClass:[FLMasterSlaveCommand class]];
-                [command.slave(slave) execute];
+            it(@"master-slaves with options", ^{
+                Command *slave = [[Command alloc] init];
 
-                [[theValue(command.isInExecuteState) should] beYes];
-                [[theValue(slave.isInExecuteState) should] beYes];
-                [[expectFutureValue(theValue(command.isInDidExecuteWithoutErrorState)) shouldEventually] beYes];
-                [[expectFutureValue(theValue(slave.isInCancelledState)) shouldEventually] beYes];
+                FLMasterSlaveCommand *masterSlaveCommand = command.slave(slave).forwardsMasterError(YES);
+                [[masterSlaveCommand should] beKindOfClass:[FLMasterSlaveCommand class]];
+                [[theValue(masterSlaveCommand.forwardMasterError) should] beYes];
             });
 
         });

@@ -7,6 +7,7 @@
 #import "FLCommand.h"
 
 @implementation FLCommand
+
 - (void)execute {
     if ([self.delegate respondsToSelector:@selector(commandWillExecute:)])
         [self.delegate commandWillExecute:self];
@@ -29,4 +30,5 @@
     if ([self.delegate respondsToSelector:@selector(command:didExecuteWithError:)])
         [self.delegate command:self didExecuteWithError:error];
 }
+
 @end

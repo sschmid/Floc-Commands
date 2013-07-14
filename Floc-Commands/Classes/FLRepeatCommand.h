@@ -8,5 +8,7 @@
 #import "FLCommand.h"
 
 @interface FLRepeatCommand : FLCommand <FLCommandDelegate>
+@property(nonatomic, strong, readonly) FLCommand *command;
+@property(nonatomic, readonly) NSInteger repeatCount;
 - (id)initWithCommand:(FLCommand *)command repeat:(NSInteger)repeatCount;
 @end

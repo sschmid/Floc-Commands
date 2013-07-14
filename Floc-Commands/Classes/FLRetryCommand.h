@@ -8,7 +8,7 @@
 #import "FLCommand.h"
 
 @interface FLRetryCommand : FLCommand <FLCommandDelegate>
+@property(nonatomic, strong, readonly) FLCommand *command;
 @property(nonatomic, readonly) NSInteger retryCount;
-
 - (id)initWithCommand:(FLCommand *)command retry:(NSInteger)retryCount;
 @end

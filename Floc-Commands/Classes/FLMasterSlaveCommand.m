@@ -7,8 +7,8 @@
 #import "FLMasterSlaveCommand.h"
 
 @interface FLMasterSlaveCommand ()
-@property(nonatomic, strong) FLCommand *masterCommand;
-@property(nonatomic, strong) FLCommand *slaveCommand;
+@property(nonatomic, strong, readwrite) FLCommand *masterCommand;
+@property(nonatomic, strong, readwrite) FLCommand *slaveCommand;
 @property(nonatomic, readwrite) BOOL forwardMasterError;
 @property(nonatomic, strong) NSMutableArray *executingCommands;
 @end
