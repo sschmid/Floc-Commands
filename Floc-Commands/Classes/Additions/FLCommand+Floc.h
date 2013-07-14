@@ -27,13 +27,13 @@
 #define FLSQ(__commands__) [[FLSequenceCommand alloc] initWithCommands:__commands__]
 #define FLSQO(__commands__, __stop__, __cancel__) [[FLSequenceCommand alloc] initWithCommands:__commands__ stopOnError:__stop__ cancelOnCancel:__cancel__]
 
-#define flpar(...) parallelWith(__VA_ARGS__, nil)
-#define flseq(...) inSequenceWith(__VA_ARGS__, nil)
+#define flpar(...) parallel(__VA_ARGS__, nil)
+#define flseq(...) sequence(__VA_ARGS__, nil)
 
 // FL Command Flow
 typedef FLInterceptionCommand *(^FLCFInterceptionCommandBlock)(FLCommand *, FLCommand *);
 typedef FLMasterSlaveCommand *(^FLCFMasterSlaveCommandBlock)(FLCommand *);
-typedef FLParallelCommand *(^FLCFParallelCommandBlock)(FLCommand *, ...); //NS_REQUIRES_NIL_TERMINATION
+typedef FLSequenceCommand *(^FLCFParallelCommandBlock)(FLCommand *, ...); //NS_REQUIRES_NIL_TERMINATION
 typedef FLRepeatCommand *(^FLCFRepeatBlock)(NSInteger);
 typedef FLRetryCommand *(^FLCFRetryBlock)(NSInteger);
 typedef FLSequenceCommand *(^FLCFSequenceCommandBlock)(FLCommand *, ...); //NS_REQUIRES_NIL_TERMINATION
@@ -41,8 +41,8 @@ typedef FLSequenceCommand *(^FLCFSequenceCommandBlock)(FLCommand *, ...); //NS_R
 @interface FLCommand (Floc)
 @property(nonatomic, copy, readonly) FLCFInterceptionCommandBlock intercept;
 @property(nonatomic, copy, readonly) FLCFMasterSlaveCommandBlock slave;
-@property(nonatomic, copy, readonly) FLCFParallelCommandBlock parallelWith; // Hint: use macro flpar, to avoid nil termination
+@property(nonatomic, copy, readonly) FLCFParallelCommandBlock parallel; // Hint: use macro flpar, to avoid nil termination
 @property(nonatomic, copy, readonly) FLCFRepeatBlock repeat;
 @property(nonatomic, copy, readonly) FLCFRetryBlock retry;
-@property(nonatomic, copy, readonly) FLCFSequenceCommandBlock inSequenceWith; // Hint: use macro flseq, to avoid nil termination
+@property(nonatomic, copy, readonly) FLCFSequenceCommandBlock sequence; // Hint: use macro flseq, to avoid nil termination
 @end

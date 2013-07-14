@@ -17,7 +17,6 @@
 #import "FLBlockCommand.h"
 #import "FLSequenceCommand.h"
 #import "DelayCommand.h"
-#import "FLParallelCommand+Floc.h"
 #import "FLSequenceCommand+Floc.h"
 #import "FLInterceptionCommand+Floc.h"
 #import "FLMasterSlaveCommand+Floc.h"
@@ -66,17 +65,22 @@ SPEC_BEGIN(FlocCommandsAdditionsSpec)
             it(@"executes parallel", ^{
                 Command *command2 = [[Command alloc] init];
                 Command *command3 = [[Command alloc] init];
-                FLParallelCommand *parallelCommand = command.flpar(command2, command3);
+
+                FLSequenceCommand *sequenceCommand = command.flpar(command2, command3);
+
+                [[sequenceCommand should] beKindOfClass:[FLSequenceCommand class]];
+                [[[sequenceCommand.commands should] have:2] commands];
+
+                [[sequenceCommand.commands[0] should] equal:command];
+
+                FLParallelCommand *parallelCommand = sequenceCommand.commands[1];
                 [[parallelCommand should] beKindOfClass:[FLParallelCommand class]];
-                [[parallelCommand.commands should] equal:@[command, command2, command3]];
+                [[parallelCommand.commands should] equal:@[command2, command3]];
             });
 
             it(@"executes parallel with options", ^{
-                Command *command2 = [[Command alloc] init];
-                Command *command3 = [[Command alloc] init];
-
-                FLParallelCommand *parallelCommand = command.flpar(command2, command3).stopsOnError(YES).cancelsOnCancel(YES);
-                [[parallelCommand should] beKindOfClass:[FLParallelCommand class]];
+                FLSequenceCommand *parallelCommand = command.flpar(nil).stopsOnError(YES).cancelsOnCancel(YES);
+                [[parallelCommand should] beKindOfClass:[FLSequenceCommand class]];
                 [[theValue(parallelCommand.stopOnError) should] beYes];
                 [[theValue(parallelCommand.cancelOnCancel) should] beYes];
             });
@@ -86,15 +90,19 @@ SPEC_BEGIN(FlocCommandsAdditionsSpec)
                 Command *command3 = [[Command alloc] init];
 
                 FLSequenceCommand *sequenceCommand = command.flseq(command2, command3);
+
                 [[sequenceCommand should] beKindOfClass:[FLSequenceCommand class]];
-                [[sequenceCommand.commands should] equal:@[command, command2, command3]];
+                [[[sequenceCommand.commands should] have:2] commands];
+
+                [[sequenceCommand.commands[0] should] equal:command];
+
+                FLSequenceCommand *seqCmd = sequenceCommand.commands[1];
+                [[seqCmd should] beKindOfClass:[FLSequenceCommand class]];
+                [[seqCmd.commands should] equal:@[command2, command3]];
             });
 
             it(@"executes sequential with options", ^{
-                Command *command2 = [[Command alloc] init];
-                Command *command3 = [[Command alloc] init];
-
-                FLSequenceCommand *sequenceCommand = command.flseq(command2, command3).stopsOnError(YES).cancelsOnCancel(YES);
+                FLSequenceCommand *sequenceCommand = command.flseq(nil).stopsOnError(YES).cancelsOnCancel(YES);
                 [[sequenceCommand should] beKindOfClass:[FLSequenceCommand class]];
                 [[theValue(sequenceCommand.stopOnError) should] beYes];
                 [[theValue(sequenceCommand.cancelOnCancel) should] beYes];

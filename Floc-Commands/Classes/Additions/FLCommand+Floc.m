@@ -26,15 +26,16 @@
     };
 }
 
-- (FLCFParallelCommandBlock)parallelWith {
-    return ^FLParallelCommand *(FLCommand *firstCommand, ...) {
+- (FLCFParallelCommandBlock)parallel {
+    return ^FLSequenceCommand *(FLCommand *firstCommand, ...) {
         va_list args;
         va_start(args, firstCommand);
-        NSMutableArray *commands = [[NSMutableArray alloc] initWithObjects:self, nil];
+        NSMutableArray *commands = [[NSMutableArray alloc] init];
         for (FLCommand *command = firstCommand; command != nil; command = va_arg(args, FLCommand *))
             [commands addObject:command];
         va_end(args);
-        return [[FLParallelCommand alloc] initWithCommands:commands];
+        return [[FLSequenceCommand alloc] initWithCommands:@[self,
+                [[FLParallelCommand alloc] initWithCommands:commands]]];
     };
 }
 
@@ -50,15 +51,16 @@
     };
 }
 
-- (FLCFSequenceCommandBlock)inSequenceWith {
+- (FLCFSequenceCommandBlock)sequence {
     return ^FLSequenceCommand *(FLCommand *firstCommand, ...) {
         va_list args;
         va_start(args, firstCommand);
-        NSMutableArray *commands = [[NSMutableArray alloc] initWithObjects:self, nil];
+        NSMutableArray *commands = [[NSMutableArray alloc] init];
         for (FLCommand *command = firstCommand; command != nil; command = va_arg(args, FLCommand *))
             [commands addObject:command];
         va_end(args);
-        return [[FLSequenceCommand alloc] initWithCommands:commands];
+        return [[FLSequenceCommand alloc] initWithCommands:@[self,
+                [[FLSequenceCommand alloc] initWithCommands:commands]]];
     };
 }
 
