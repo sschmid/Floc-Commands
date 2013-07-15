@@ -26,21 +26,22 @@ SPEC_BEGIN(FlocCommandsAdditionsSpec)
         describe(@"FlocCommandsAdditionsSpec Tests", ^{
 
             it(@"has a bunch of macros", ^{
-                FLCommand *cmd = [[FLCommand alloc] init];
-                NSArray *cmds = @[cmd];
+                FLCommand *cmd1 = [[FLCommand alloc] init];
+                FLCommand *cmd2 = [[FLCommand alloc] init];
+                FLCommand *cmd3 = [[FLCommand alloc] init];
 
                 FLBC(^(FLBlockCommand *command) {});
                 FLDLY(0.5);
-                FLIC(cmd, cmd, cmd);
-                FLICO(cmd, cmd, cmd, NO, NO);
-                FLMS(cmd, cmd);
-                FLMSO(cmd, cmd, NO);
-                FLPL(cmds);
-                FLPLO(cmds, NO, NO);
-                FLRP(cmd, NO);
-                FLRT(cmd, NO);
-                FLSQ(cmds);
-                FLSQO(cmds, NO, NO);
+                FLIC(cmd1, cmd2, cmd3);
+                FLICO(NO, NO, cmd1, cmd2, cmd3);
+                FLMS(cmd1, cmd2);
+                FLMSO(NO, cmd1, cmd2);
+                FLPL(cmd1, cmd2, cmd3);
+                FLPLO(NO, NO, cmd1, cmd2, cmd3);
+                FLRP(cmd1, NO);
+                FLRT(cmd1, NO);
+                FLSQ(cmd1, cmd2, cmd3);
+                FLSQO(NO, NO, cmd1, cmd2, cmd3);
             });
 
             __block Command *command;

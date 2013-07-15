@@ -17,15 +17,15 @@
 #define FLBC(__block__) [[FLBlockCommand alloc] initWithBlock:__block__]
 #define FLDLY(__delay__) [[FLDelayCommand alloc] initWithDelay:__delay__]
 #define FLIC(__targetCommand__, __successCommand__, __errorCommand__) [[FLInterceptionCommand alloc] initWithTarget:__targetCommand__ success:__successCommand__ error:__errorCommand__]
-#define FLICO(__targetCommand__, __successCommand__, __errorCommand__, __cancel__, __forward__) [[FLInterceptionCommand alloc] initWithTarget:__targetCommand__ success:__successCommand__ error:__errorCommand__ cancelOnCancel:__cancel__ forwardTargetError:__forward__]
+#define FLICO(__cancel__, __forward__, __targetCommand__, __successCommand__, __errorCommand__) [[FLInterceptionCommand alloc] initWithTarget:__targetCommand__ success:__successCommand__ error:__errorCommand__ cancelOnCancel:__cancel__ forwardTargetError:__forward__]
 #define FLMS(__masterCommand__, __slaveCommand__) [[MasterSlaveCommand alloc] initWithMaster:__masterCommand__ slave:__slaveCommand__]
-#define FLMSO(__masterCommand__, __slaveCommand__, __forward__) [[MasterSlaveCommand alloc] initWithMaster:__masterCommand__ slave:__slaveCommand__ forwardMasterError:__forward__]
-#define FLPL(__commands__) [[ParallelCommand alloc] initWithCommands:__commands__]
-#define FLPLO(__commands__, __stop__, __cancel__) [[ParallelCommand alloc] initWithCommands:__commands__ stopOnError:__stop__ cancelOnCancel:__cancel__]
+#define FLMSO(__forward__, __masterCommand__, __slaveCommand__) [[MasterSlaveCommand alloc] initWithMaster:__masterCommand__ slave:__slaveCommand__ forwardMasterError:__forward__]
+#define FLPL(...) [[ParallelCommand alloc] initWithCommands:@[__VA_ARGS__]]
+#define FLPLO(__stop__, __cancel__, ...) [[ParallelCommand alloc] initWithCommands:@[__VA_ARGS__] stopOnError:__stop__ cancelOnCancel:__cancel__]
 #define FLRP(__command__, __repeat__) [[FLRepeatCommand alloc] initWithCommand:__command__ repeat:__repeat__]
 #define FLRT(__command__, __retry__) [[FLRetryCommand alloc] initWithCommand:__command__ retry:__retry__]
-#define FLSQ(__commands__) [[FLSequenceCommand alloc] initWithCommands:__commands__]
-#define FLSQO(__commands__, __stop__, __cancel__) [[FLSequenceCommand alloc] initWithCommands:__commands__ stopOnError:__stop__ cancelOnCancel:__cancel__]
+#define FLSQ(...) [[FLSequenceCommand alloc] initWithCommands:@[__VA_ARGS__]]
+#define FLSQO(__stop__, __cancel__, ...) [[FLSequenceCommand alloc] initWithCommands:@[__VA_ARGS__] stopOnError:__stop__ cancelOnCancel:__cancel__]
 
 #define flpar(...) parallel(__VA_ARGS__, nil)
 #define flseq(...) sequence(__VA_ARGS__, nil)
