@@ -23,15 +23,47 @@ it must always call `didExecuteWithError:`. If it executed successfully without 
 or you can use `didExecute` for convenience. Assign a delegate to respond to `commandWillExecute:`,
 `command:didExecuteWithError:` or `commandCancelled:`.
 
+## Fluent API and macros
+Floc Commands comes with some nice categories and macros to enable cool stuff like:
+
+```objective-c
+FLSQ(dowloadImage, convertImage, applyFilter, upload).stopsOnError(YES).cancelsOnCancel(YES)
+            .intercept(showSuccessAlert, showErrorAlert)
+            .slave(playJeopardyTheme).keepAlive.execute;
+```
+In this example `FLSQ` (macro for `FLSequenceCommand`) executes all asynchronous commands one after another. If a
+command in the sequence fails for some reason, `showErrorAlert` will be executed, else `showSuccessAlert`.
+`playJeopardyTheme` will be executed along with the sequence and gets canceled, as soon as asynchronous
+operation is completed. Since we do not have a strong pointer to the command, we call `keepAlive` to ensure the command
+will not be deallocated before it's completed.
+
+This example creates a `FLBlockCommand` which repeats 16x followed by a `FLBlockCommand`. The sequence will repeat forever (`-1`)
+
+```objective-c
+FLBC(^(FLBlockCommand *command) {
+    NSLog(@"na");
+    [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.2];
+}).repeat(16).flseq(FLBC(^(FLBlockCommand *command) {
+    NSLog(@"Batman!");
+    [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.2];
+})).repeat(-1).keepAlive.execute;
+```
+
+There are handy macros for each command type.
+
 ## Potential pitfalls
 When working with asynchronous commands, you should keep a strong pointer to it, because otherwise it may be
-deallocated before it finishes.
+deallocated before it finishes. Alternatively you can call `keepAlive`, so the lifecycle of the command will be
+managed for you.
 
 RequestDataCommand might take several seconds to complete, so it's a good idea to assign in to a property to keep
 the command alive.
+
 ```objective-c
-self.command = [[RequesteDataCommand alloc] init];
-[command execute];
+self.cmd = [[[RequesteDataCommand alloc] init] execute];
+
+// or
+[[RequesteDataCommand alloc] init].keepAlive.execute;
 ```
 
 ## Examples
