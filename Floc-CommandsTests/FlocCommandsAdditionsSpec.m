@@ -146,6 +146,16 @@ SPEC_BEGIN(FlocCommandsAdditionsSpec)
                 [[theValue(masterSlaveCommand.forwardMasterError) should] beYes];
             });
 
+            it(@"manual AppDelegate tests", ^{
+                __block BOOL manualAppDelegateTestsDidPass = NO;
+                FLDLY(0.3).flseq(FLBC(^(FLBlockCommand *command) {
+                    manualAppDelegateTestsDidPass = YES;
+                    [command didExecute];
+                })).execute;
+
+                [[expectFutureValue(theValue(manualAppDelegateTestsDidPass)) shouldEventually] beYes];
+            });
+
         });
 
         SPEC_END

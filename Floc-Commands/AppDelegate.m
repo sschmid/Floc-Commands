@@ -1,4 +1,4 @@
-//
+ //
 // Created by Simon Schmid
 //
 // contact@sschmid.com
@@ -26,24 +26,28 @@
 
     self.batmanTheme = [[BatmanTheme alloc] init];
 
-    __weak AppDelegate *weak_self = self;
-    FLDLY(0.1).flseq(FLBC(^(FLBlockCommand *command) {
-        weak_self.commandDidExecute = YES;
-        [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.1];
-    })).keepAlive.execute;
-
-    [NSTimer scheduledTimerWithTimeInterval:0.5
-                                     target:self
-                                   selector:@selector(checkIfCommandDidExecuteTillEnd)
-                                   userInfo:nil
-                                    repeats:NO];
-
+    [self manualRealLifeTests];
     [self.window makeKeyAndVisible];
     return YES;
 }
 
+- (void)manualRealLifeTests {
+    __weak AppDelegate *weak_self = self;
+    FLDLY(0.1).flseq(FLBC(^(FLBlockCommand *command) {
+        weak_self.commandDidExecute = YES;
+        command.didExecute;
+    })).keepAlive.execute;
+
+    [NSTimer scheduledTimerWithTimeInterval:0.2
+                                     target:self
+                                   selector:@selector(checkIfCommandDidExecuteTillEnd)
+                                   userInfo:nil
+                                    repeats:NO];
+}
+
 - (void)checkIfCommandDidExecuteTillEnd {
-    NSAssert(self.commandDidExecute, @"Manual test failed");
+    if (!self.commandDidExecute)
+        [[NSException exceptionWithName:@"Manual test" reason:@"Command was not kept alive!" userInfo:nil] raise];
 }
 
 - (void)showIcon {
