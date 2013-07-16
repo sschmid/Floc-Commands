@@ -35,12 +35,12 @@
 		8D4DF8135C941422609CB45B /* Icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4DF724D783D7AA2A004908 /* Icon-144.png */; };
 		8D4DF85BAA9EF81C52285070 /* FLCommand+KeepAlive.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF4F02E2459003D1F93FA /* FLCommand+KeepAlive.m */; };
 		8D4DF8AD9B412608C6D3745D /* FLParallelCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFAB28509E770FD37AA95 /* FLParallelCommandSpec.m */; };
+		8D4DF9859D2609CB735C9306 /* CommandDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF7F803F29FB4323CB27F /* CommandDelegate.m */; };
 		8D4DFAB7BD5F481CE5BAA042 /* FLSequenceCommand+Floc.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF6C8F1792268E385FD40 /* FLSequenceCommand+Floc.m */; };
 		8D4DFABF45B96DB79E8734D7 /* FLSequenceCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF07129F1616CDFEB38DD /* FLSequenceCommandSpec.m */; };
 		8D4DFAC96DF0E7C43B16296C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4DF22574A86539778ACF4A /* Default.png */; };
 		8D4DFB316D0476D9C12B888B /* FLRetryCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF1F07A2B00B278408E14 /* FLRetryCommandSpec.m */; };
 		8D4DFBF9D84DFF439FF06128 /* FLMasterSlaveCommandSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFEA9ACAC4EB0054C6086 /* FLMasterSlaveCommandSpec.m */; };
-		8D4DFBFB78C41429D07A6D9A /* CommandDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF66B63F99143A6768263 /* CommandDelegate.m */; };
 		8D4DFC4740BBBEFCFEA37F54 /* FLBlockCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFDA442DFAB3A5D2EB04B /* FLBlockCommand.m */; };
 		8D4DFC759719F179EBED7092 /* FLMasterSlaveCommand+Floc.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFBCE6FF06CD0EB0386F3 /* FLMasterSlaveCommand+Floc.m */; };
 		8D4DFCF657CA43BB99203AB6 /* FLParallelCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DF045142D78327F66987A /* FLParallelCommand.m */; };
@@ -76,6 +76,7 @@
 
 /* Begin PBXFileReference section */
 		0666D5A0D91246CD9AAF468C /* libPods-Floc-CommandsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Floc-CommandsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D4DF01D97764E2509172489 /* CommandDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandDelegate.h; sourceTree = "<group>"; };
 		8D4DF030D88461DE7C8B3610 /* MasterSlaveCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterSlaveCommand.m; sourceTree = "<group>"; };
 		8D4DF045142D78327F66987A /* FLParallelCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLParallelCommand.m; sourceTree = "<group>"; };
 		8D4DF07129F1616CDFEB38DD /* FLSequenceCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSequenceCommandSpec.m; sourceTree = "<group>"; };
@@ -101,7 +102,6 @@
 		8D4DF4F02E2459003D1F93FA /* FLCommand+KeepAlive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FLCommand+KeepAlive.m"; sourceTree = "<group>"; };
 		8D4DF64B2AA38A40A3ED9DAE /* ParallelCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallelCommand.h; sourceTree = "<group>"; };
 		8D4DF65F407D3307F072B942 /* FLCommand+Floc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FLCommand+Floc.m"; sourceTree = "<group>"; };
-		8D4DF66B63F99143A6768263 /* CommandDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandDelegate.m; sourceTree = "<group>"; };
 		8D4DF69EB4BB80581368FF8D /* Floc-Commands-Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Floc-Commands-Logo.png"; sourceTree = "<group>"; };
 		8D4DF6A9B6F5ABCB19BFEB8C /* FLSequenceCommand+Floc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FLSequenceCommand+Floc.h"; sourceTree = "<group>"; };
 		8D4DF6ABE8C7730E06E3C2BF /* FLCommand+Floc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FLCommand+Floc.h"; sourceTree = "<group>"; };
@@ -112,6 +112,7 @@
 		8D4DF729AD740F6567D48911 /* FLRetryCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLRetryCommand.h; sourceTree = "<group>"; };
 		8D4DF7F154239F51F0394880 /* FLRepeatCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLRepeatCommandSpec.m; sourceTree = "<group>"; };
 		8D4DF7F6FC3677F38520192D /* FLDelayCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLDelayCommand.h; sourceTree = "<group>"; };
+		8D4DF7F803F29FB4323CB27F /* CommandDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandDelegate.m; sourceTree = "<group>"; };
 		8D4DF840FE389CCF9A6DB1A5 /* FlocCommandsAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlocCommandsAdditionsSpec.m; sourceTree = "<group>"; };
 		8D4DF87A56E27575A4F4D398 /* FLMasterSlaveCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLMasterSlaveCommand.m; sourceTree = "<group>"; };
 		8D4DF9326E88E54B88CCCC02 /* FLBlockCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLBlockCommandSpec.m; sourceTree = "<group>"; };
@@ -132,7 +133,6 @@
 		8D4DFBB2BE20CDDE5D440B9E /* InterceptionCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterceptionCommand.h; sourceTree = "<group>"; };
 		8D4DFBCE6FF06CD0EB0386F3 /* FLMasterSlaveCommand+Floc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FLMasterSlaveCommand+Floc.m"; sourceTree = "<group>"; };
 		8D4DFC3C8154D635EE2E0A59 /* FLDelayCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLDelayCommandSpec.m; sourceTree = "<group>"; };
-		8D4DFCA417E5A16F802098AB /* CommandDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandDelegate.h; sourceTree = "<group>"; };
 		8D4DFCB4CCE65F75ADE75D02 /* FLMasterSlaveCommand+Floc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FLMasterSlaveCommand+Floc.h"; sourceTree = "<group>"; };
 		8D4DFD932E5ED566B226EE5E /* BatmanTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatmanTheme.m; sourceTree = "<group>"; };
 		8D4DFDA442DFAB3A5D2EB04B /* FLBlockCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLBlockCommand.m; sourceTree = "<group>"; };
@@ -187,7 +187,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8D4DF00CD2B27C848A3A8734 /* Commands */ = {
+		8D4DF00CD2B27C848A3A8734 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
 				8D4DF945BABE9236D3292936 /* Command.m */,
@@ -206,17 +206,10 @@
 				8D4DFAB93A6471070EC02509 /* RepeatCommand.h */,
 				8D4DF4E46CA4F494F6D79207 /* DelayCommand.m */,
 				8D4DF9CFC2EB7822898E43C6 /* DelayCommand.h */,
+				8D4DF7F803F29FB4323CB27F /* CommandDelegate.m */,
+				8D4DF01D97764E2509172489 /* CommandDelegate.h */,
 			);
-			path = Commands;
-			sourceTree = "<group>";
-		};
-		8D4DF313DCB1DC7CE8B318A2 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				8D4DF66B63F99143A6768263 /* CommandDelegate.m */,
-				8D4DFCA417E5A16F802098AB /* CommandDelegate.h */,
-			);
-			path = Helpers;
+			path = Fixtures;
 			sourceTree = "<group>";
 		};
 		8D4DF4E120A6B8FAFCDCBC26 /* Examples */ = {
@@ -349,9 +342,8 @@
 			children = (
 				CB1B4C1F1762413D00BACBB8 /* Supporting Files */,
 				8D4DF972C11F868C7A5873CF /* FlocCommandsSpec.m */,
-				8D4DF00CD2B27C848A3A8734 /* Commands */,
+				8D4DF00CD2B27C848A3A8734 /* Fixtures */,
 				8D4DF3A2130E911C635E0F51 /* FLCommandSpec.m */,
-				8D4DF313DCB1DC7CE8B318A2 /* Helpers */,
 				8D4DF07129F1616CDFEB38DD /* FLSequenceCommandSpec.m */,
 				8D4DFAB28509E770FD37AA95 /* FLParallelCommandSpec.m */,
 				8D4DFDE08EB7889C71DD38CE /* FLInterceptionCommandSpec.m */,
@@ -545,7 +537,6 @@
 				8D4DF20738A1B9E1C49C5B8D /* FlocCommandsSpec.m in Sources */,
 				8D4DFD915A21496D623D6330 /* FLCommandSpec.m in Sources */,
 				8D4DF7A0215832EB0168B668 /* Command.m in Sources */,
-				8D4DFBFB78C41429D07A6D9A /* CommandDelegate.m in Sources */,
 				8D4DFABF45B96DB79E8734D7 /* FLSequenceCommandSpec.m in Sources */,
 				8D4DF096C37F5E6F10C6C848 /* SequenceCommand.m in Sources */,
 				8D4DF8AD9B412608C6D3745D /* FLParallelCommandSpec.m in Sources */,
@@ -563,6 +554,7 @@
 				8D4DFDDA1900022095253D57 /* FLDelayCommandSpec.m in Sources */,
 				8D4DF25D80CDB5725AD30E1A /* DelayCommand.m in Sources */,
 				8D4DFF50BD6DC13281795457 /* FLParallelCommand+Floc.m in Sources */,
+				8D4DF9859D2609CB735C9306 /* CommandDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
