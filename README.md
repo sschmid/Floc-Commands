@@ -19,7 +19,7 @@ All commands are sublcasses of `FLCommand`, which is designed to be used both sy
 
 ## How to use Floc Commands
 To get started, create a subclass of `FLCommand` and override `execute`. When a command finishes execution,
-it must always call `didExecuteWithError:`. If it executed successfully without any errors, you pass nil as an argument
+it must always call `didExecuteWithError:`. If it executed successfully without any errors, you pass `nil` as an argument
 or you can use `didExecute` for convenience. Assign a delegate to respond to `commandWillExecute:`,
 `command:didExecuteWithError:` or `commandCancelled:`.
 
@@ -27,17 +27,16 @@ or you can use `didExecute` for convenience. Assign a delegate to respond to `co
 Floc Commands comes with some nice categories and macros to enable cool stuff like:
 
 ```objective-c
-FLSQ(dowloadImage, convertImage, applyFilter, upload).stopsOnError(YES).cancelsOnCancel(YES)
-            .intercept(showSuccessAlert, showErrorAlert)
-            .slave(playJeopardyTheme).keepAlive.execute;
+FLSQ(dowloadImage, convertImage, applyFilter, upload).stopsOnError(YES).cancelsOnCancel(YES).retry(3)
+        .intercept(showSuccessAlert, showErrorAlert)
+        .slave(playJeopardyTheme.repeat(-1)).keepAlive.execute;
 ```
-In this example `FLSQ` (macro for `FLSequenceCommand`) executes all asynchronous commands one after another. If a
-command in the sequence fails for some reason, `showErrorAlert` will be executed, else `showSuccessAlert`.
-`playJeopardyTheme` will be executed along with the sequence and gets canceled, as soon as asynchronous
-operation is completed. Since we do not have a strong pointer to the command, we call `keepAlive` to ensure the command
-will not be deallocated before it's completed.
-
-This example creates a `FLBlockCommand` which repeats 16x followed by a `FLBlockCommand`. The sequence will repeat forever (`-1`)
+In this example `FLSQ` (macro for `FLSequenceCommand`) executes all asynchronous commands one after another and will
+retry to execute all commands if any errors occour or a command gets cancelled. If the sequence fails or gets cancelled,
+`showErrorAlert` will be executed, else `showSuccessAlert`.
+`playJeopardyTheme` will repeat forever (`-1`) and will be executed along with the sequence and gets cancelled, as soon
+as asynchronous operation is completed. Since we do not have a strong pointer to the command, we call `keepAlive` to
+ensure the command will not be deallocated before it's completed. The lifecycle of the command will be managed for you.
 
 ```objective-c
 FLBC(^(FLBlockCommand *command) {
@@ -48,8 +47,10 @@ FLBC(^(FLBlockCommand *command) {
     [command performSelector:@selector(didExecute) withObject:nil afterDelay:0.2];
 })).repeat(-1).keepAlive.execute;
 ```
+This example creates a `FLBlockCommand` which repeats 16x followed by another `FLBlockCommand`. The sequence will repeat forever (`-1`)
 
-There are handy macros for each command type.
+There are handy macros for each command type. Check them out!
+See [FLCommand+Floc.h](https://github.com/sschmid/Floc-Commands/blob/master/Floc-Commands/Classes/Additions/FLCommand%2BFloc.h)
 
 ## Potential pitfalls
 When working with asynchronous commands, you should keep a strong pointer to it, because otherwise it may be
@@ -60,7 +61,7 @@ RequestDataCommand might take several seconds to complete, so it's a good idea t
 the command alive.
 
 ```objective-c
-self.cmd = [[[RequesteDataCommand alloc] init] execute];
+self.requestCommand = [[[RequesteDataCommand alloc] init] execute];
 
 // or
 [[RequesteDataCommand alloc] init].keepAlive.execute;
@@ -92,9 +93,14 @@ Asynchronous FLCommand
     [super execute];
 
       // This may take a few seconds...
-      [self.server sendData:data onComplete:^(NSError *error) {
+      [self.service sendData:data onComplete:^(NSError *error) {
           [self didExecuteWithError:error];
       }];
+}
+
+- (void)cancel {
+    [self.service closeConnection];
+    [super cancel];
 }
 
 @end
