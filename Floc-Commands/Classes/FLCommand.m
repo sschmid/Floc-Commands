@@ -6,14 +6,20 @@
 
 #import "FLCommand.h"
 
+@interface FLCommand ()
+@property(nonatomic, readwrite) BOOL isRunning;
+@end
+
 @implementation FLCommand
 
 - (void)execute {
+    self.isRunning = YES;
     if ([self.delegate respondsToSelector:@selector(commandWillExecute:)])
         [self.delegate commandWillExecute:self];
 }
 
 - (void)cancel {
+    self.isRunning = NO;
     if ([self.delegate respondsToSelector:@selector(commandCancelled:)])
         [self.delegate commandCancelled:self];
 }
@@ -27,6 +33,7 @@
 }
 
 - (void)didExecuteWithError:(NSError *)error {
+    self.isRunning = NO;
     if ([self.delegate respondsToSelector:@selector(command:didExecuteWithError:)])
         [self.delegate command:self didExecuteWithError:error];
 }

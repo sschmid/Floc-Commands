@@ -17,6 +17,8 @@
 
 @interface FLCommand : NSObject
 @property(nonatomic, weak) id <FLCommandDelegate> delegate;
+@property(nonatomic, readonly) BOOL isRunning;
+
 - (void)execute;
 - (void)cancel;
 

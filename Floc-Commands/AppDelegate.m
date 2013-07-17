@@ -24,7 +24,7 @@
     self.window.backgroundColor = [UIColor blackColor];
     [self showIcon];
 
-    self.batmanTheme = [[BatmanTheme alloc] init];
+//    self.batmanTheme = [[BatmanTheme alloc] init];
 
     [self manualRealLifeTests];
     [self.window makeKeyAndVisible];

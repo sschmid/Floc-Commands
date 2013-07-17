@@ -51,6 +51,7 @@
 		8D4DFF4FDC5F80E6E3731053 /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4DF23E565F346B1BA48473 /* Icon-114.png */; };
 		8D4DFF50BD6DC13281795457 /* FLParallelCommand+Floc.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFAF00BC73C154591D179 /* FLParallelCommand+Floc.m */; };
 		8D4DFFA1BE4AE0A034A32386 /* Icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4DFDE9C69CC1AB96B9957D /* Icon-57.png */; };
+		8D4DFFB839F83349291514D2 /* FLSwizzler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DFD6348EFC23BAE00024F /* FLSwizzler.m */; };
 		CB1B4BFB1762413D00BACBB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFA1762413D00BACBB8 /* UIKit.framework */; };
 		CB1B4BFD1762413D00BACBB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFC1762413D00BACBB8 /* Foundation.framework */; };
 		CB1B4BFF1762413D00BACBB8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1B4BFE1762413D00BACBB8 /* CoreGraphics.framework */; };
@@ -77,6 +78,7 @@
 /* Begin PBXFileReference section */
 		0666D5A0D91246CD9AAF468C /* libPods-Floc-CommandsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Floc-CommandsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D4DF01D97764E2509172489 /* CommandDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandDelegate.h; sourceTree = "<group>"; };
+		8D4DF025C96C4AB615BAB464 /* FLSwizzler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSwizzler.h; sourceTree = "<group>"; };
 		8D4DF030D88461DE7C8B3610 /* MasterSlaveCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterSlaveCommand.m; sourceTree = "<group>"; };
 		8D4DF045142D78327F66987A /* FLParallelCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLParallelCommand.m; sourceTree = "<group>"; };
 		8D4DF07129F1616CDFEB38DD /* FLSequenceCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSequenceCommandSpec.m; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 		8D4DFBCE6FF06CD0EB0386F3 /* FLMasterSlaveCommand+Floc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FLMasterSlaveCommand+Floc.m"; sourceTree = "<group>"; };
 		8D4DFC3C8154D635EE2E0A59 /* FLDelayCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLDelayCommandSpec.m; sourceTree = "<group>"; };
 		8D4DFCB4CCE65F75ADE75D02 /* FLMasterSlaveCommand+Floc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FLMasterSlaveCommand+Floc.h"; sourceTree = "<group>"; };
+		8D4DFD6348EFC23BAE00024F /* FLSwizzler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSwizzler.m; sourceTree = "<group>"; };
 		8D4DFD932E5ED566B226EE5E /* BatmanTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatmanTheme.m; sourceTree = "<group>"; };
 		8D4DFDA442DFAB3A5D2EB04B /* FLBlockCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLBlockCommand.m; sourceTree = "<group>"; };
 		8D4DFDE08EB7889C71DD38CE /* FLInterceptionCommandSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLInterceptionCommandSpec.m; sourceTree = "<group>"; };
@@ -277,6 +280,8 @@
 				8D4DF723D0723D7130F55666 /* FLInterceptionCommand+Floc.h */,
 				8D4DFBCE6FF06CD0EB0386F3 /* FLMasterSlaveCommand+Floc.m */,
 				8D4DFCB4CCE65F75ADE75D02 /* FLMasterSlaveCommand+Floc.h */,
+				8D4DFD6348EFC23BAE00024F /* FLSwizzler.m */,
+				8D4DF025C96C4AB615BAB464 /* FLSwizzler.h */,
 			);
 			path = Additions;
 			sourceTree = "<group>";
@@ -527,6 +532,7 @@
 				8D4DFAB7BD5F481CE5BAA042 /* FLSequenceCommand+Floc.m in Sources */,
 				8D4DF31B8D2103A6D2C4FC14 /* FLInterceptionCommand+Floc.m in Sources */,
 				8D4DFC759719F179EBED7092 /* FLMasterSlaveCommand+Floc.m in Sources */,
+				8D4DFFB839F83349291514D2 /* FLSwizzler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

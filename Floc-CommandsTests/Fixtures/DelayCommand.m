@@ -46,35 +46,40 @@
     return !self.didStartExecution &&
             !self.didCompleteExecution &&
             self.error == nil &&
-            !self.didGetCancelled;
+            !self.didGetCancelled &&
+            !self.isRunning;
 }
 
 - (BOOL)isInExecuteState {
     return self.didStartExecution &&
             !self.didCompleteExecution &&
             self.error == nil &&
-            !self.didGetCancelled;
+            !self.didGetCancelled &&
+            self.isRunning;
 }
 
 - (BOOL)isInDidExecuteWithoutErrorState {
     return self.didStartExecution &&
             self.didCompleteExecution &&
             self.error == nil &&
-            !self.didGetCancelled;
+            !self.didGetCancelled &&
+            !self.isRunning;
 }
 
 - (BOOL)isInDidExecuteWithErrorState {
     return self.didStartExecution &&
             self.didCompleteExecution &&
             self.error != nil &&
-            !self.didGetCancelled;
+            !self.didGetCancelled &&
+            !self.isRunning;
 }
 
 - (BOOL)isInCancelledState {
     return self.didStartExecution &&
             !self.didCompleteExecution &&
             self.error == nil &&
-            self.didGetCancelled;
+            self.didGetCancelled &&
+            !self.isRunning;
 }
 
 @end
