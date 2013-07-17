@@ -7,8 +7,6 @@
 #import "FLCommand+KeepAlive.h"
 #import "FLSwizzler.h"
 
-static NSMutableSet *sKeepAliveCommands;
-
 @implementation FLCommand (KeepAlive)
 
 + (void)load {
@@ -17,8 +15,11 @@ static NSMutableSet *sKeepAliveCommands;
 }
 
 + (NSMutableSet *)keepAliveCommands {
-    if (!sKeepAliveCommands)
+    static NSMutableSet *sKeepAliveCommands = nil;
+    static dispatch_once_t onceToken = 0;
+    dispatch_once(&onceToken, ^{
         sKeepAliveCommands = [[NSMutableSet alloc] init];
+    });
 
     return sKeepAliveCommands;
 }
